@@ -34,6 +34,11 @@ func NewMapInt32ToInt(size int) *MapInt32ToInt {
 	}
 }
 
+// Size returns the current size of the map.
+func (h *MapInt32ToInt) Size() int {
+	return h.size
+}
+
 // Get looks up a key k returns its value. 0 if not found.
 func (h *MapInt32ToInt) Get(k int32) int {
 	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {

@@ -34,6 +34,11 @@ func NewMapIntToUint64(size int) *MapIntToUint64 {
 	}
 }
 
+// Size returns the current size of the map.
+func (h *MapIntToUint64) Size() int {
+	return h.size
+}
+
 // Get looks up a key k returns its value. 0 if not found.
 func (h *MapIntToUint64) Get(k int) uint64 {
 	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {

@@ -55,6 +55,11 @@ func New{{ $TYPE }}(size int) *{{ $TYPE }} {
 	}
 }
 
+// Size returns the current size of the map.
+func (h *{{ $TYPE }}) Size() int {
+	return h.size
+}
+
 // Get looks up a key k returns its value. 0 if not found.
 func (h *{{ $TYPE }}) Get(k {{ .From }}) {{ .To }} {
 	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {

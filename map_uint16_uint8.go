@@ -34,6 +34,11 @@ func NewMapUint16ToUint8(size int) *MapUint16ToUint8 {
 	}
 }
 
+// Size returns the current size of the map.
+func (h *MapUint16ToUint8) Size() int {
+	return h.size
+}
+
 // Get looks up a key k returns its value. 0 if not found.
 func (h *MapUint16ToUint8) Get(k uint16) uint8 {
 	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {
