@@ -76,6 +76,29 @@ func (h *MapUint16ToUint32) Add(k uint16, v uint32) {
 	}
 }
 
+// Put sets the value associated with key k to the value of v.
+// It creates a new key/value pair k/v in the map if the key does not exist.
+func (h *MapUint16ToUint32) Put(k uint16, v uint32) {
+	p := &h.slots[int(k)&h.mask]
+	for e := *p; e != nil; e = e.next {
+		if e.k == k {
+			e.v = v
+			return
+		}
+	}
+	n := h.alloc(k, v)
+	if *p != nil {
+		n.next = *p
+		*p = n
+	} else {
+		*p = n
+		h.used++
+		if h.used > h.max {
+			h.rehash()
+		}
+	}
+}
+
 // Inc increments a value associated with key k by one.
 // A new entry is created with value 1 if the key
 // does not exist.
