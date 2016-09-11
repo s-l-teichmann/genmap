@@ -59,6 +59,16 @@ func (h *MapInt16ToUint64) Contains(k int16) bool {
 	return false
 }
 
+// Modify looks up a key k and calls function fn with a pointer to its value.
+func (h *MapInt16ToUint64) Modify(k int16, fn func(v *uint64)) {
+	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {
+		if e.k == k {
+			fn(&e.v)
+			return
+		}
+	}
+}
+
 // Find looks up a key k and returns its value and true.
 // 0 and false if not found.
 func (h *MapInt16ToUint64) Find(k int16) (uint64, bool) {

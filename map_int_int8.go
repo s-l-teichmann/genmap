@@ -59,6 +59,16 @@ func (h *MapIntToInt8) Contains(k int) bool {
 	return false
 }
 
+// Modify looks up a key k and calls function fn with a pointer to its value.
+func (h *MapIntToInt8) Modify(k int, fn func(v *int8)) {
+	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {
+		if e.k == k {
+			fn(&e.v)
+			return
+		}
+	}
+}
+
 // Find looks up a key k and returns its value and true.
 // 0 and false if not found.
 func (h *MapIntToInt8) Find(k int) (int8, bool) {
