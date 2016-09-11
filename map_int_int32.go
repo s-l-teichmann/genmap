@@ -16,12 +16,12 @@ type entryIntToInt32 struct {
 
 // MapIntToInt32 implements a hash map from int to int32.
 type MapIntToInt32 struct {
-	mask  int
-	slots []*entryIntToInt32
-	used  int
-	size  int
-	max   int
-	free  []entryIntToInt32
+	mask     int
+	slots    []*entryIntToInt32
+	used     int
+	size     int
+	max      int
+	freelist *entryIntToInt32
 }
 
 // NewMapIntToInt32 creates a new MapIntToInt32 with at least a size of size.
@@ -99,6 +99,29 @@ func (h *MapIntToInt32) Put(k int, v int32) {
 	}
 }
 
+// Remove removes the key/value pair associated with key k from this map..
+func (h *MapIntToInt32) Remove(k int) {
+	p := &h.slots[int(k)&h.mask]
+	var parent *entryIntToInt32
+	for e := *p; e != nil; e = e.next {
+		if e.k == k {
+			if parent == nil { // head
+				if e.next == nil { // last in chain
+					*p = nil
+					h.used--
+				} else {
+					*p = e.next
+				}
+			} else {
+				parent.next = e.next
+			}
+			h.free(e)
+			return
+		}
+		parent = e
+	}
+}
+
 // Inc increments a value associated with key k by one.
 // A new entry is created with value 1 if the key
 // does not exist.
@@ -150,14 +173,24 @@ func (h *MapIntToInt32) rehash() {
 	h.max = maxFill(ns)
 }
 
+func (h *MapIntToInt32) free(entry *entryIntToInt32) {
+	entry.next = h.freelist
+	h.freelist = entry
+	h.size--
+}
+
 func (h *MapIntToInt32) alloc(k int, v int32) *entryIntToInt32 {
-	if len(h.free) == 0 {
-		h.free = make([]entryIntToInt32, 256)
+	if h.freelist == nil {
+		entries := make([]entryIntToInt32, 256)
+		for i := 0; i < 256-1; i++ {
+			entries[i].next = &entries[i+1]
+		}
+		h.freelist = &entries[0]
 	}
 	h.size++
-	x := &h.free[0]
+	x := h.freelist
 	x.k = k
 	x.v = v
-	h.free = h.free[1:]
+	h.freelist = h.freelist.next
 	return x
 }

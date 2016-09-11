@@ -37,12 +37,12 @@ type {{ $ENTRY }} struct {
 
 // {{ $TYPE }} implements a hash map from {{ .From }} to {{ .To }}.
 type {{ $TYPE }} struct {
-	mask  int
-	slots []*{{ $ENTRY }}
-	used  int
-	size  int
-	max   int
-	free  []{{ $ENTRY }}
+	mask     int
+	slots    []*{{ $ENTRY }}
+	used     int
+	size     int
+	max      int
+	freelist *{{ $ENTRY }}
 }
 
 // New{{ $TYPE }} creates a new {{ $TYPE }} with at least a size of size.
@@ -120,6 +120,29 @@ func (h *{{ $TYPE }}) Put(k {{ .From }}, v {{ .To }}) {
 	}
 }
 
+// Remove removes the key/value pair associated with key k from this map..
+func (h *{{ $TYPE }}) Remove(k {{ .From }}) {
+	p := &h.slots[int(k)&h.mask]
+	var parent *{{ $ENTRY }}
+	for e := *p; e != nil; e = e.next {
+		if e.k == k {
+			if parent == nil { // head
+				if e.next == nil { // last in chain
+					*p = nil
+					h.used--
+				} else {
+					*p = e.next
+				}
+			} else {
+				parent.next = e.next
+			}
+			h.free(e)
+			return
+		}
+		parent = e
+	}
+}
+
 // Inc increments a value associated with key k by one.
 // A new entry is created with value 1 if the key
 // does not exist.
@@ -171,15 +194,25 @@ func (h *{{ $TYPE }}) rehash() {
 	h.max = maxFill(ns)
 }
 
+func (h *{{ $TYPE }}) free(entry *{{ $ENTRY }}) {
+	entry.next = h.freelist
+	h.freelist = entry
+	h.size--
+}
+
 func (h *{{ $TYPE }}) alloc(k {{ .From }}, v {{ .To }}) *{{ $ENTRY }} {
-	if len(h.free) == 0 {
-		h.free = make([]{{ $ENTRY }}, 256)
+	if h.freelist == nil {
+		entries := make([]{{ $ENTRY }}, 256)
+		for i := 0; i < 256-1; i++ {
+			entries[i].next = &entries[i+1]
+		}
+		h.freelist = &entries[0]
 	}
 	h.size++
-	x := &h.free[0]
+	x := h.freelist
 	x.k = k
 	x.v = v
-	h.free = h.free[1:]
+	h.freelist = h.freelist.next
 	return x
 }
 `

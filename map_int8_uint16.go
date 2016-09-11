@@ -16,12 +16,12 @@ type entryInt8ToUint16 struct {
 
 // MapInt8ToUint16 implements a hash map from int8 to uint16.
 type MapInt8ToUint16 struct {
-	mask  int
-	slots []*entryInt8ToUint16
-	used  int
-	size  int
-	max   int
-	free  []entryInt8ToUint16
+	mask     int
+	slots    []*entryInt8ToUint16
+	used     int
+	size     int
+	max      int
+	freelist *entryInt8ToUint16
 }
 
 // NewMapInt8ToUint16 creates a new MapInt8ToUint16 with at least a size of size.
@@ -99,6 +99,29 @@ func (h *MapInt8ToUint16) Put(k int8, v uint16) {
 	}
 }
 
+// Remove removes the key/value pair associated with key k from this map..
+func (h *MapInt8ToUint16) Remove(k int8) {
+	p := &h.slots[int(k)&h.mask]
+	var parent *entryInt8ToUint16
+	for e := *p; e != nil; e = e.next {
+		if e.k == k {
+			if parent == nil { // head
+				if e.next == nil { // last in chain
+					*p = nil
+					h.used--
+				} else {
+					*p = e.next
+				}
+			} else {
+				parent.next = e.next
+			}
+			h.free(e)
+			return
+		}
+		parent = e
+	}
+}
+
 // Inc increments a value associated with key k by one.
 // A new entry is created with value 1 if the key
 // does not exist.
@@ -150,14 +173,24 @@ func (h *MapInt8ToUint16) rehash() {
 	h.max = maxFill(ns)
 }
 
+func (h *MapInt8ToUint16) free(entry *entryInt8ToUint16) {
+	entry.next = h.freelist
+	h.freelist = entry
+	h.size--
+}
+
 func (h *MapInt8ToUint16) alloc(k int8, v uint16) *entryInt8ToUint16 {
-	if len(h.free) == 0 {
-		h.free = make([]entryInt8ToUint16, 256)
+	if h.freelist == nil {
+		entries := make([]entryInt8ToUint16, 256)
+		for i := 0; i < 256-1; i++ {
+			entries[i].next = &entries[i+1]
+		}
+		h.freelist = &entries[0]
 	}
 	h.size++
-	x := &h.free[0]
+	x := h.freelist
 	x.k = k
 	x.v = v
-	h.free = h.free[1:]
+	h.freelist = h.freelist.next
 	return x
 }
