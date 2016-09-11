@@ -223,8 +223,9 @@ func (h *MapUintToInt) alloc(k uint, v int) *entryUintToInt {
 	}
 	h.size++
 	x := h.freelist
+	h.freelist = x.next
+	x.next = nil
 	x.k = k
 	x.v = v
-	h.freelist = h.freelist.next
 	return x
 }

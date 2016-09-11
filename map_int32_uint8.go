@@ -223,8 +223,9 @@ func (h *MapInt32ToUint8) alloc(k int32, v uint8) *entryInt32ToUint8 {
 	}
 	h.size++
 	x := h.freelist
+	h.freelist = x.next
+	x.next = nil
 	x.k = k
 	x.v = v
-	h.freelist = h.freelist.next
 	return x
 }

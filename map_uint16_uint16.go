@@ -223,8 +223,9 @@ func (h *MapUint16ToUint16) alloc(k uint16, v uint16) *entryUint16ToUint16 {
 	}
 	h.size++
 	x := h.freelist
+	h.freelist = x.next
+	x.next = nil
 	x.k = k
 	x.v = v
-	h.freelist = h.freelist.next
 	return x
 }
