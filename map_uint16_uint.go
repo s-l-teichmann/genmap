@@ -44,6 +44,16 @@ func (h *MapUint16ToUint) Get(k uint16) uint {
 	return 0
 }
 
+// Find looks up a key k returns its value and true. 0 and false if not found.
+func (h *MapUint16ToUint) Find(k uint16) (uint, bool) {
+	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {
+		if e.k == k {
+			return e.v, true
+		}
+	}
+	return 0, false
+}
+
 // Visit calls a given function fn for every key/value pair in the map.
 func (h *MapUint16ToUint) Visit(fn func(uint16, uint)) {
 	for _, e := range h.slots {
