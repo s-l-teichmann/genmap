@@ -10,7 +10,7 @@ with *A*, *B* from all of
 `int`, `int8`, `int16`, `int32`, `int64`,  
 `uint`, `uint8`, `uint16`, `uint32` and `uint64`.
 
-The maps are named camel cased `MapAToB`.  
+The maps are named in camel case `MapAToB`.  
 So a map from e.g. `int8` to `uint32` is called `MapInt8ToUint32`.
 
 ## Installation
