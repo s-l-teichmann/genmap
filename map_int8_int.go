@@ -107,11 +107,9 @@ func (h *MapInt8ToInt) Remove(k int8) {
 		if e.k == k {
 			if parent == nil { // head
 				if e.next == nil { // last in chain
-					*p = nil
 					h.used--
-				} else {
-					*p = e.next
 				}
+				*p = e.next
 			} else {
 				parent.next = e.next
 			}
