@@ -9,7 +9,9 @@ This library offers specialized hash maps from A to B
 with A and B from all of `int`, `int8`, `int16`, `int32`, `int64`,
 `uint`, `uint8`, `uint16`, `uint32` and `uint64`.
 
-Installation
+## Installation
+
+You need at least a Go 1.6 environment.
 
     $ go get github.com/s-l-teichmann/genmap
 
@@ -52,7 +54,7 @@ Example program using a uint64 to int map:
 
 For a more complete set of methods see the API index.
 
-# For contributors
+## For contributors
 
 The maps are generated from a template in `generators/genmaps.go`.
 Re-generate the maps with
@@ -62,6 +64,6 @@ Re-generate the maps with
 For pull request ensure that the files are generated in a way
 that a `go fmt` call would not change them.
 
-# License
+## License
 This is Free Software covered by the terms of the [MIT license](LICENSE).  
 (c) 2016 by Sascha L. Teichmann
