@@ -39,7 +39,7 @@ func (h *MapIntToUint) Size() int {
 	return h.size
 }
 
-// Get looks up a key k returns its value. 0 if not found.
+// Get looks up a key k and returns its value. 0 if not found.
 func (h *MapIntToUint) Get(k int) uint {
 	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {
 		if e.k == k {
@@ -49,7 +49,18 @@ func (h *MapIntToUint) Get(k int) uint {
 	return 0
 }
 
-// Find looks up a key k returns its value and true. 0 and false if not found.
+// Contains looks up a key k and returns true if it is found else false.
+func (h *MapIntToUint) Contains(k int) bool {
+	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {
+		if e.k == k {
+			return true
+		}
+	}
+	return false
+}
+
+// Find looks up a key k and returns its value and true.
+// 0 and false if not found.
 func (h *MapIntToUint) Find(k int) (uint, bool) {
 	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {
 		if e.k == k {

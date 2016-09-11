@@ -39,7 +39,7 @@ func (h *MapUint8ToInt64) Size() int {
 	return h.size
 }
 
-// Get looks up a key k returns its value. 0 if not found.
+// Get looks up a key k and returns its value. 0 if not found.
 func (h *MapUint8ToInt64) Get(k uint8) int64 {
 	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {
 		if e.k == k {
@@ -49,7 +49,18 @@ func (h *MapUint8ToInt64) Get(k uint8) int64 {
 	return 0
 }
 
-// Find looks up a key k returns its value and true. 0 and false if not found.
+// Contains looks up a key k and returns true if it is found else false.
+func (h *MapUint8ToInt64) Contains(k uint8) bool {
+	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {
+		if e.k == k {
+			return true
+		}
+	}
+	return false
+}
+
+// Find looks up a key k and returns its value and true.
+// 0 and false if not found.
 func (h *MapUint8ToInt64) Find(k uint8) (int64, bool) {
 	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {
 		if e.k == k {
