@@ -52,6 +52,16 @@ Example program using a uint64 to int map:
 
 For a more complete set of methods see the API index.
 
+# For contributors
 
+The maps are generated from a template in `generators/genmaps.go`.
+Re-generate the maps with
+
+    $ go generate
+
+For pull request ensure that the files are generated in a way
+that a `go fmt` call would not change them.
+
+# License
 This is Free Software covered by the terms of the [MIT license](LICENSE).  
 (c) 2016 by Sascha L. Teichmann
