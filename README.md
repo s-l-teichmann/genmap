@@ -6,10 +6,11 @@ The builtin maps of Go are good but sometimes you need some extra
 performance.
 
 This library offers specialized hash maps from *A* to *B*
-with A and B from all of `int`, `int8`, `int16`, `int32`, `int64`,
+with *A*, *B* from all of  
+`int`, `int8`, `int16`, `int32`, `int64`,  
 `uint`, `uint8`, `uint16`, `uint32` and `uint64`.
 
-The maps are named camel cased `Map`*A*`To`*B*`.  
+The maps are named camel cased `MapAToB`.  
 So a map from e.g. `int8` to `uint32` is called `MapInt8ToUint32`.
 
 ## Installation
