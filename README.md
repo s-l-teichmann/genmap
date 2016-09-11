@@ -5,9 +5,12 @@ Specialized hash maps for integer types in Go.
 The builtin maps of Go are good but sometimes you need some extra
 performance.
 
-This library offers specialized hash maps from A to B
+This library offers specialized hash maps from *A* to *B*
 with A and B from all of `int`, `int8`, `int16`, `int32`, `int64`,
 `uint`, `uint8`, `uint16`, `uint32` and `uint64`.
+
+The maps are named camel cased `Map`*A*`To`*B*`.  
+So a map from e.g. `int8` to `uint32` is called `MapInt8ToUint32`.
 
 ## Installation
 
@@ -56,7 +59,7 @@ For a more complete set of methods see the API index.
 
 ## For contributors
 
-The maps are generated from a template in `generators/genmaps.go`.
+The maps are generated from a template in `generators/genmaps.go`.  
 Re-generate the maps with
 
     $ go generate
