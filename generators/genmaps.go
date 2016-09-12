@@ -296,6 +296,7 @@ func main() {
 		for _, parameters.To = range types {
 			if err = mapTmpl.Execute(out, &parameters); err != nil {
 				log.Printf("templating %s failed: %v\n", filename, err)
+				break
 			}
 		}
 
