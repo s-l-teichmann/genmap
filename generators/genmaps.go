@@ -37,7 +37,7 @@ var mapTmplTxt = `
 {{- $ENTRY :=  printf "entry%sTo%s" $F $T -}}
 
 type {{ $ENTRY }} struct {
-	k    {{.From }}
+	k    {{ .From }}
 	v    {{ .To }}
 	next *{{ $ENTRY }}
 }
