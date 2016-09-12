@@ -19,7 +19,7 @@ var types = []string{
 	"uint", "uint8", "uint16", "uint32", "uint64",
 }
 
-var mapTmplTxt = `// THIS IS A MACHINE GENERATED FILE!
+var headerTmplTxt = `// THIS IS A MACHINE GENERATED FILE!
 // BE CAREFUL WITH EDITING BY HAND.
 //
 // This is Free Software covered by the terms of the MIT license.
@@ -28,7 +28,9 @@ var mapTmplTxt = `// THIS IS A MACHINE GENERATED FILE!
 // See the full list of contributors in the CONTRIBUTORS file.
 
 package genmap
+`
 
+var mapTmplTxt = `
 {{ $F := .From | title -}}
 {{- $T := .To | title -}}
 {{- $TYPE :=  printf "Map%sTo%s" $F $T -}}
@@ -261,41 +263,47 @@ var funcMap = template.FuncMap{
 	"title": strings.Title,
 }
 
-var mapTmpl = template.Must(template.New("maps").Funcs(funcMap).Parse(mapTmplTxt))
-
-func matrix(fn func(from, to string)) {
-	for _, a := range types {
-		for _, b := range types {
-			fn(a, b)
-		}
-	}
-}
+var (
+	headerTmpl = template.Must(template.New("header").Funcs(funcMap).Parse(headerTmplTxt))
+	mapTmpl    = template.Must(template.New("maps").Funcs(funcMap).Parse(mapTmplTxt))
+)
 
 func main() {
-	matrix(func(from, to string) {
-		filename := fmt.Sprintf("map_%s_%s.go", from, to)
+	for _, from := range types {
+		filename := fmt.Sprintf("map_%s.go", from)
 		log.Printf("Generating %s...\n", filename)
+
 		f, err := os.Create(filename)
 		if err != nil {
 			log.Printf("creating %s failed: %v\n", filename, err)
-			return
+			continue
 		}
 		out := bufio.NewWriter(f)
+
+		if err = headerTmpl.Execute(out, nil); err != nil {
+			log.Printf("templating header %s failed: %v\n", filename, err)
+			f.Close()
+			continue
+		}
+
 		var parameters = struct {
 			From string
 			To   string
 		}{
 			From: from,
-			To:   to,
 		}
-		if err = mapTmpl.Execute(out, &parameters); err != nil {
-			log.Printf("templating %s failed: %v\n", filename, err)
+
+		for _, parameters.To = range types {
+			if err = mapTmpl.Execute(out, &parameters); err != nil {
+				log.Printf("templating %s failed: %v\n", filename, err)
+			}
 		}
+
 		if err = out.Flush(); err != nil {
 			log.Printf("flushing %s failed: %v\n", filename, err)
 		}
 		if err = f.Close(); err != nil {
 			log.Printf("closing %s failed: %v\n", filename, err)
 		}
-	})
+	}
 }
