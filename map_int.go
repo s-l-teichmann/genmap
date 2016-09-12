@@ -156,6 +156,21 @@ func (h *MapIntToInt) Remove(k int) {
 	}
 }
 
+// Clear removes all elements from the map.
+func (h *MapIntToInt) Clear() {
+	for i, e := range h.slots {
+		if e != nil {
+			for e != nil {
+				n := e.next
+				h.free(e)
+				e = n
+			}
+			h.slots[i] = nil
+		}
+	}
+	h.used = 0
+}
+
 // Inc increments a value associated with key k by one.
 // A new entry is created with value 1 if the key
 // does not exist.
@@ -376,6 +391,21 @@ func (h *MapIntToInt8) Remove(k int) {
 		}
 		parent = e
 	}
+}
+
+// Clear removes all elements from the map.
+func (h *MapIntToInt8) Clear() {
+	for i, e := range h.slots {
+		if e != nil {
+			for e != nil {
+				n := e.next
+				h.free(e)
+				e = n
+			}
+			h.slots[i] = nil
+		}
+	}
+	h.used = 0
 }
 
 // Inc increments a value associated with key k by one.
@@ -600,6 +630,21 @@ func (h *MapIntToInt16) Remove(k int) {
 	}
 }
 
+// Clear removes all elements from the map.
+func (h *MapIntToInt16) Clear() {
+	for i, e := range h.slots {
+		if e != nil {
+			for e != nil {
+				n := e.next
+				h.free(e)
+				e = n
+			}
+			h.slots[i] = nil
+		}
+	}
+	h.used = 0
+}
+
 // Inc increments a value associated with key k by one.
 // A new entry is created with value 1 if the key
 // does not exist.
@@ -820,6 +865,21 @@ func (h *MapIntToInt32) Remove(k int) {
 		}
 		parent = e
 	}
+}
+
+// Clear removes all elements from the map.
+func (h *MapIntToInt32) Clear() {
+	for i, e := range h.slots {
+		if e != nil {
+			for e != nil {
+				n := e.next
+				h.free(e)
+				e = n
+			}
+			h.slots[i] = nil
+		}
+	}
+	h.used = 0
 }
 
 // Inc increments a value associated with key k by one.
@@ -1044,6 +1104,21 @@ func (h *MapIntToInt64) Remove(k int) {
 	}
 }
 
+// Clear removes all elements from the map.
+func (h *MapIntToInt64) Clear() {
+	for i, e := range h.slots {
+		if e != nil {
+			for e != nil {
+				n := e.next
+				h.free(e)
+				e = n
+			}
+			h.slots[i] = nil
+		}
+	}
+	h.used = 0
+}
+
 // Inc increments a value associated with key k by one.
 // A new entry is created with value 1 if the key
 // does not exist.
@@ -1264,6 +1339,21 @@ func (h *MapIntToUint) Remove(k int) {
 		}
 		parent = e
 	}
+}
+
+// Clear removes all elements from the map.
+func (h *MapIntToUint) Clear() {
+	for i, e := range h.slots {
+		if e != nil {
+			for e != nil {
+				n := e.next
+				h.free(e)
+				e = n
+			}
+			h.slots[i] = nil
+		}
+	}
+	h.used = 0
 }
 
 // Inc increments a value associated with key k by one.
@@ -1488,6 +1578,21 @@ func (h *MapIntToUint8) Remove(k int) {
 	}
 }
 
+// Clear removes all elements from the map.
+func (h *MapIntToUint8) Clear() {
+	for i, e := range h.slots {
+		if e != nil {
+			for e != nil {
+				n := e.next
+				h.free(e)
+				e = n
+			}
+			h.slots[i] = nil
+		}
+	}
+	h.used = 0
+}
+
 // Inc increments a value associated with key k by one.
 // A new entry is created with value 1 if the key
 // does not exist.
@@ -1708,6 +1813,21 @@ func (h *MapIntToUint16) Remove(k int) {
 		}
 		parent = e
 	}
+}
+
+// Clear removes all elements from the map.
+func (h *MapIntToUint16) Clear() {
+	for i, e := range h.slots {
+		if e != nil {
+			for e != nil {
+				n := e.next
+				h.free(e)
+				e = n
+			}
+			h.slots[i] = nil
+		}
+	}
+	h.used = 0
 }
 
 // Inc increments a value associated with key k by one.
@@ -1932,6 +2052,21 @@ func (h *MapIntToUint32) Remove(k int) {
 	}
 }
 
+// Clear removes all elements from the map.
+func (h *MapIntToUint32) Clear() {
+	for i, e := range h.slots {
+		if e != nil {
+			for e != nil {
+				n := e.next
+				h.free(e)
+				e = n
+			}
+			h.slots[i] = nil
+		}
+	}
+	h.used = 0
+}
+
 // Inc increments a value associated with key k by one.
 // A new entry is created with value 1 if the key
 // does not exist.
@@ -2152,6 +2287,21 @@ func (h *MapIntToUint64) Remove(k int) {
 		}
 		parent = e
 	}
+}
+
+// Clear removes all elements from the map.
+func (h *MapIntToUint64) Clear() {
+	for i, e := range h.slots {
+		if e != nil {
+			for e != nil {
+				n := e.next
+				h.free(e)
+				e = n
+			}
+			h.slots[i] = nil
+		}
+	}
+	h.used = 0
 }
 
 // Inc increments a value associated with key k by one.

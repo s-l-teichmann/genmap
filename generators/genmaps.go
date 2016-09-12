@@ -184,6 +184,21 @@ func (h *{{ $TYPE }}) Remove(k {{ .From }}) {
 	}
 }
 
+// Clear removes all elements from the map.
+func (h *{{ $TYPE }}) Clear() {
+	for i, e := range h.slots {
+		if e != nil {
+			for e != nil {
+				n := e.next
+				h.free(e)
+				e = n
+			}
+			h.slots[i] = nil
+		}
+	}
+	h.used = 0
+}
+
 // Inc increments a value associated with key k by one.
 // A new entry is created with value 1 if the key
 // does not exist.
