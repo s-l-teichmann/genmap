@@ -14,11 +14,6 @@ import (
 	"text/template"
 )
 
-var types = []string{
-	"int", "int8", "int16", "int32", "int64",
-	"uint", "uint8", "uint16", "uint32", "uint64",
-}
-
 var headerTmplTxt = `// THIS IS A MACHINE GENERATED FILE!
 // BE CAREFUL WITH EDITING BY HAND.
 //
@@ -33,8 +28,8 @@ package genmap
 var mapTmplTxt = `
 {{ $F := .From | title -}}
 {{- $T := .To | title -}}
-{{- $TYPE :=  printf "Map%sTo%s" $F $T -}}
-{{- $ENTRY :=  printf "entry%sTo%s" $F $T -}}
+{{- $TYPE := printf "Map%sTo%s" $F $T -}}
+{{- $ENTRY := printf "entry%sTo%s" $F $T -}}
 
 type {{ $ENTRY }} struct {
 	k    {{ .From }}
@@ -284,8 +279,8 @@ var (
 )
 
 func main() {
-	for _, from := range types {
-		filename := fmt.Sprintf("map_%s.go", from)
+	for i := range types {
+		filename := fmt.Sprintf("map_%s.go", types[i].Name)
 		log.Printf("Generating %s...\n", filename)
 
 		f, err := os.Create(filename)
@@ -305,10 +300,11 @@ func main() {
 			From string
 			To   string
 		}{
-			From: from,
+			From: types[i].Name,
 		}
 
-		for _, parameters.To = range types {
+		for j := range types {
+			parameters.To = types[j].Name
 			if err = mapTmpl.Execute(out, &parameters); err != nil {
 				log.Printf("templating %s failed: %v\n", filename, err)
 				break
