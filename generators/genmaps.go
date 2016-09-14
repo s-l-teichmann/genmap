@@ -290,6 +290,14 @@ func (h *{{ $TYPE }}) alloc(k {{ $FROM }}, v {{ $TO }}) *{{ $ENTRY }} {
 `
 
 var testsTmplText = `
+{{  $FROM  := .From.Name -}}
+{{- $TO    := .To.Name -}}
+{{- $F     := $FROM | title -}}
+{{- $T     := $TO | title -}}
+{{- $TYPE  := printf "Map%sTo%s" $F $T -}}
+{{- $ENTRY := printf "entry%sTo%s" $F $T -}}
+
+// TODO: Implement tests for {{ $TYPE }}.
 `
 
 var funcMap = template.FuncMap{

@@ -8,12 +8,22 @@
 
 package genmap
 
+// TODO: Implement tests for MapIntToInt.
 
+// TODO: Implement tests for MapIntToInt8.
 
+// TODO: Implement tests for MapIntToInt16.
 
+// TODO: Implement tests for MapIntToInt32.
 
+// TODO: Implement tests for MapIntToInt64.
 
+// TODO: Implement tests for MapIntToUint.
 
+// TODO: Implement tests for MapIntToUint8.
 
+// TODO: Implement tests for MapIntToUint16.
 
+// TODO: Implement tests for MapIntToUint32.
 
+// TODO: Implement tests for MapIntToUint64.
