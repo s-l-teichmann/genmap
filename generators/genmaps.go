@@ -359,7 +359,7 @@ func generateTests(t *typ) error {
 
 	for j := range types {
 		p.To = &types[j]
-		if err = mapsTmpl.Execute(out, &p); err != nil {
+		if err = testsTmpl.Execute(out, &p); err != nil {
 			f.Close()
 			return err
 		}
