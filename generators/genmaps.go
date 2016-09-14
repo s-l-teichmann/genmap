@@ -14,6 +14,24 @@ import (
 	"text/template"
 )
 
+type typ struct {
+	Name   string
+	Signed bool
+}
+
+var types = []typ{
+	{"int", true},
+	{"int8", true},
+	{"int16", true},
+	{"int32", true},
+	{"int64", true},
+	{"uint", false},
+	{"uint8", false},
+	{"uint16", false},
+	{"uint32", false},
+	{"uint64", false},
+}
+
 var headerTmplTxt = `// THIS IS A MACHINE GENERATED FILE!
 // BE CAREFUL WITH EDITING BY HAND.
 //
@@ -25,19 +43,21 @@ var headerTmplTxt = `// THIS IS A MACHINE GENERATED FILE!
 package genmap
 `
 
-var mapTmplTxt = `
-{{ $F := .From | title -}}
-{{- $T := .To | title -}}
-{{- $TYPE := printf "Map%sTo%s" $F $T -}}
+var mapsTmplTxt = `
+{{  $FROM  := .From.Name -}}
+{{- $TO    := .To.Name -}}
+{{- $F     := $FROM | title -}}
+{{- $T     := $TO | title -}}
+{{- $TYPE  := printf "Map%sTo%s" $F $T -}}
 {{- $ENTRY := printf "entry%sTo%s" $F $T -}}
 
 type {{ $ENTRY }} struct {
-	k    {{ .From }}
-	v    {{ .To }}
+	k    {{ $FROM }}
+	v    {{ $TO }}
 	next *{{ $ENTRY }}
 }
 
-// {{ $TYPE }} implements a hash map from {{ .From }} to {{ .To }}.
+// {{ $TYPE }} implements a hash map from {{ $FROM }} to {{ $TO }}.
 type {{ $TYPE }} struct {
 	mask     int
 	slots    []*{{ $ENTRY }}
@@ -63,7 +83,7 @@ func (h *{{ $TYPE }}) Size() int {
 }
 
 // Get looks up a key k and returns its value. 0 if not found.
-func (h *{{ $TYPE }}) Get(k {{ .From }}) {{ .To }} {
+func (h *{{ $TYPE }}) Get(k {{ $FROM }}) {{ $TO }} {
 	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {
 		if e.k == k {
 			return e.v
@@ -73,7 +93,7 @@ func (h *{{ $TYPE }}) Get(k {{ .From }}) {{ .To }} {
 }
 
 // Contains looks up a key k and returns true if it is found else false.
-func (h *{{ $TYPE }}) Contains(k {{ .From }}) bool {
+func (h *{{ $TYPE }}) Contains(k {{ $FROM }}) bool {
 	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {
 		if e.k == k {
 			return true
@@ -83,7 +103,7 @@ func (h *{{ $TYPE }}) Contains(k {{ .From }}) bool {
 }
 
 // Modify looks up a key k and calls function fn with a pointer to its value.
-func (h *{{ $TYPE }}) Modify(k {{ .From }}, fn func(v *{{ .To }})) {
+func (h *{{ $TYPE }}) Modify(k {{ $FROM }}, fn func(v *{{ $TO }})) {
 	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {
 		if e.k == k {
 			fn(&e.v)
@@ -94,7 +114,7 @@ func (h *{{ $TYPE }}) Modify(k {{ .From }}, fn func(v *{{ .To }})) {
 
 // Find looks up a key k and returns its value and true.
 // 0 and false if not found.
-func (h *{{ $TYPE }}) Find(k {{ .From }}) ({{ .To }}, bool) {
+func (h *{{ $TYPE }}) Find(k {{ $FROM }}) ({{ $TO }}, bool) {
 	for e := h.slots[int(k)&h.mask]; e != nil; e = e.next {
 		if e.k == k {
 			return e.v, true
@@ -104,7 +124,7 @@ func (h *{{ $TYPE }}) Find(k {{ .From }}) ({{ .To }}, bool) {
 }
 
 // Visit calls a given function fn for every key/value pair in the map.
-func (h *{{ $TYPE }}) Visit(fn func({{ .From }}, {{ .To }})) {
+func (h *{{ $TYPE }}) Visit(fn func({{ $FROM }}, {{ $TO }})) {
 	for _, e := range h.slots {
 		for ; e != nil; e = e.next {
 			fn(e.k, e.v)
@@ -114,7 +134,7 @@ func (h *{{ $TYPE }}) Visit(fn func({{ .From }}, {{ .To }})) {
 
 // Add increments the value associated with key k by the value of v.
 // It creates a new key/value pair k/v in the map if the key does not exist.
-func (h *{{ $TYPE }}) Add(k {{ .From }}, v {{ .To }}) {
+func (h *{{ $TYPE }}) Add(k {{ $FROM }}, v {{ $TO }}) {
 	p := &h.slots[int(k)&h.mask]
 	for e := *p; e != nil; e = e.next {
 		if e.k == k {
@@ -137,7 +157,7 @@ func (h *{{ $TYPE }}) Add(k {{ .From }}, v {{ .To }}) {
 
 // Put sets the value associated with key k to the value of v.
 // It creates a new key/value pair k/v in the map if the key does not exist.
-func (h *{{ $TYPE }}) Put(k {{ .From }}, v {{ .To }}) {
+func (h *{{ $TYPE }}) Put(k {{ $FROM }}, v {{ $TO }}) {
 	p := &h.slots[int(k)&h.mask]
 	for e := *p; e != nil; e = e.next {
 		if e.k == k {
@@ -159,7 +179,7 @@ func (h *{{ $TYPE }}) Put(k {{ .From }}, v {{ .To }}) {
 }
 
 // Remove removes the key/value pair associated with key k from this map..
-func (h *{{ $TYPE }}) Remove(k {{ .From }}) {
+func (h *{{ $TYPE }}) Remove(k {{ $FROM }}) {
 	p := &h.slots[int(k)&h.mask]
 	var parent *{{ $ENTRY }}
 	for e := *p; e != nil; e = e.next {
@@ -197,7 +217,7 @@ func (h *{{ $TYPE }}) Clear() {
 // Inc increments a value associated with key k by one.
 // A new entry is created with value 1 if the key
 // does not exist.
-func (h *{{ $TYPE }}) Inc(k {{ .From }}) {
+func (h *{{ $TYPE }}) Inc(k {{ $FROM }}) {
 	p := &h.slots[int(k)&h.mask]
 	for e := *p; e != nil; e = e.next {
 		if e.k == k {
@@ -251,7 +271,7 @@ func (h *{{ $TYPE }}) free(entry *{{ $ENTRY }}) {
 	h.size--
 }
 
-func (h *{{ $TYPE }}) alloc(k {{ .From }}, v {{ .To }}) *{{ $ENTRY }} {
+func (h *{{ $TYPE }}) alloc(k {{ $FROM }}, v {{ $TO }}) *{{ $ENTRY }} {
 	if h.freelist == nil {
 		entries := make([]{{ $ENTRY }}, 256)
 		for i := 0; i < 256-1; i++ {
@@ -269,53 +289,98 @@ func (h *{{ $TYPE }}) alloc(k {{ .From }}, v {{ .To }}) *{{ $ENTRY }} {
 }
 `
 
+var testsTmplText = `
+`
+
 var funcMap = template.FuncMap{
 	"title": strings.Title,
 }
 
 var (
 	headerTmpl = template.Must(template.New("header").Funcs(funcMap).Parse(headerTmplTxt))
-	mapTmpl    = template.Must(template.New("maps").Funcs(funcMap).Parse(mapTmplTxt))
+	mapsTmpl   = template.Must(template.New("maps").Funcs(funcMap).Parse(mapsTmplTxt))
+	testsTmpl  = template.Must(template.New("tests").Funcs(funcMap).Parse(testsTmplText))
 )
+
+type parameters struct {
+	From *typ
+	To   *typ
+}
+
+func generateMaps(t *typ) error {
+	filename := fmt.Sprintf("map_%s.go", t.Name)
+	log.Printf("Generating %s...\n", filename)
+
+	f, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	out := bufio.NewWriter(f)
+
+	if err = headerTmpl.Execute(out, nil); err != nil {
+		log.Printf("templating header %s failed: %v\n", filename, err)
+		f.Close()
+		return err
+	}
+
+	p := parameters{From: t}
+
+	for j := range types {
+		p.To = &types[j]
+		if err = mapsTmpl.Execute(out, &p); err != nil {
+			f.Close()
+			return err
+		}
+	}
+
+	if err = out.Flush(); err != nil {
+		f.Close()
+		return err
+	}
+	return f.Close()
+}
+
+func generateTests(t *typ) error {
+	filename := fmt.Sprintf("map_%s_test.go", t.Name)
+	log.Printf("Generating %s...\n", filename)
+
+	f, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	out := bufio.NewWriter(f)
+
+	if err = headerTmpl.Execute(out, nil); err != nil {
+		f.Close()
+		return err
+	}
+
+	p := parameters{From: t}
+
+	for j := range types {
+		p.To = &types[j]
+		if err = mapsTmpl.Execute(out, &p); err != nil {
+			f.Close()
+			return err
+		}
+	}
+
+	if err = out.Flush(); err != nil {
+		f.Close()
+		return err
+	}
+	return f.Close()
+}
 
 func main() {
 	for i := range types {
-		filename := fmt.Sprintf("map_%s.go", types[i].Name)
-		log.Printf("Generating %s...\n", filename)
-
-		f, err := os.Create(filename)
-		if err != nil {
-			log.Printf("creating %s failed: %v\n", filename, err)
+		t := &types[i]
+		if err := generateMaps(t); err != nil {
+			log.Printf("generating maps failed: %v\n", err)
 			continue
 		}
-		out := bufio.NewWriter(f)
-
-		if err = headerTmpl.Execute(out, nil); err != nil {
-			log.Printf("templating header %s failed: %v\n", filename, err)
-			f.Close()
-			continue
-		}
-
-		var parameters = struct {
-			From string
-			To   string
-		}{
-			From: types[i].Name,
-		}
-
-		for j := range types {
-			parameters.To = types[j].Name
-			if err = mapTmpl.Execute(out, &parameters); err != nil {
-				log.Printf("templating %s failed: %v\n", filename, err)
-				break
-			}
-		}
-
-		if err = out.Flush(); err != nil {
-			log.Printf("flushing %s failed: %v\n", filename, err)
-		}
-		if err = f.Close(); err != nil {
-			log.Printf("closing %s failed: %v\n", filename, err)
+		if err := generateTests(t); err != nil {
+			log.Printf("generating tests failed: %v\n", err)
 		}
 	}
 }

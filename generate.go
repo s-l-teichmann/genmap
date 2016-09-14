@@ -5,4 +5,4 @@
 
 package genmap
 
-//go:generate go run generators/genmaps.go generators/types.go
+//go:generate go run generators/genmaps.go
