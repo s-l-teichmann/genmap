@@ -308,7 +308,6 @@ var testsTmplText = `
 {{- $F     := $FROM | title -}}
 {{- $T     := $TO | title -}}
 {{- $TYPE  := printf "Map%sTo%s" $F $T -}}
-{{- $ENTRY := printf "entry%sTo%s" $F $T -}}
 {{- $KEYS  := or (and .From.Signed "signedData") "unsignedData" -}}
 {{- $VALS  := or (and .To.Signed "signedData") "unsignedData" -}}
 
