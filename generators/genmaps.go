@@ -57,14 +57,13 @@ import "testing"
 `
 
 var mapsTmplTxt = `
-{{  $FROM  := .From.Name -}}
-{{- $TO    := .To.Name -}}
-{{- $F     := $FROM | title -}}
-{{- $T     := $TO | title -}}
-{{- $TYPE  := printf "Map%sTo%s" $F $T -}}
-{{- $ENTRY := printf "entry%sTo%s" $F $T -}}
-
-type {{ $ENTRY }} struct {
+{{     $FROM  := .From.Name }}{{/*
+*/}}{{ $TO    := .To.Name }}{{/*
+*/}}{{ $F     := $FROM | title }}{{/*
+*/}}{{ $T     := $TO | title }}{{/*
+*/}}{{ $TYPE  := printf "Map%sTo%s" $F $T }}{{/*
+*/}}{{ $ENTRY := printf "entry%sTo%s" $F $T }}{{/*
+*/}}type {{ $ENTRY }} struct {
 	k    {{ $FROM }}
 	v    {{ $TO }}
 	next *{{ $ENTRY }}
@@ -303,15 +302,14 @@ func (h *{{ $TYPE }}) alloc(k {{ $FROM }}, v {{ $TO }}) *{{ $ENTRY }} {
 `
 
 var testsTmplText = `
-{{  $FROM  := .From.Name -}}
-{{- $TO    := .To.Name -}}
-{{- $F     := $FROM | title -}}
-{{- $T     := $TO | title -}}
-{{- $TYPE  := printf "Map%sTo%s" $F $T -}}
-{{- $KEYS  := or (and .From.Signed "signedData") "unsignedData" -}}
-{{- $VALS  := or (and .To.Signed "signedData") "unsignedData" -}}
-
-func Test{{ $TYPE }}Size(t *testing.T) {
+{{     $FROM  := .From.Name }}{{/*
+*/}}{{ $TO    := .To.Name }}{{/*
+*/}}{{ $F     := $FROM | title }}{{/*
+*/}}{{ $T     := $TO | title }}{{/*
+*/}}{{ $TYPE  := printf "Map%sTo%s" $F $T }}{{/*
+*/}}{{ $KEYS  := or (and .From.Signed "signedData") "unsignedData" }}{{/*
+*/}}{{ $VALS  := or (and .To.Signed "signedData") "unsignedData" }}{{/*
+*/}}func Test{{ $TYPE }}Size(t *testing.T) {
 	m := New{{ $TYPE }}(13)
 	if m.Size() != 0 {
 		t.Errorf("map size is %d, want 0\n", m.Size())

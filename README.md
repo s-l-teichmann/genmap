@@ -17,7 +17,7 @@ So a map from e.g. `int8` to `uint32` is called `MapInt8ToUint32`.
 
 ## Installation
 
-You need at least a Go 1.6 environment.
+You need a Go1 environment.
 
     $ go get github.com/s-l-teichmann/genmap
 
