@@ -355,6 +355,10 @@ func Test{{ $TYPE }}Get(t *testing.T) {
 			t.Errorf("Get(%d) = %d, want %d\n", k, g, {{ $VALS }}[i])
 		}
 	}
+	m.Clear()
+	if g := m.Get(0); g != 0 {
+		t.Errorf("Got %d, want 0\n", g)
+	}
 }
 
 func Test{{ $TYPE }}Clear(t *testing.T) {
@@ -388,7 +392,7 @@ func Test{{ $TYPE }}Inc(t *testing.T) {
 			t.Errorf("got %d, want 0\n", g, {{ $TO }}({{ $VALS }}[i])+3)
 		}
 	}
-	m.Clear()
+	m = New{{ $TYPE }}(13)
 	for _, k := range {{ $KEYS }} {
 		m.Inc({{ $FROM }}(k))
 		if g := m.Get({{ $FROM }}(k)); g != 1 {
@@ -408,7 +412,7 @@ func Test{{ $TYPE }}Add(t *testing.T) {
 			t.Errorf("got %d, want 0\n", g, {{ $TO }}({{ $VALS }}[i])+3)
 		}
 	}
-	m.Clear()
+	m = New{{ $TYPE }}(13)
 	for _, k := range {{ $KEYS }} {
 		m.Add({{ $FROM }}(k), 42)
 		if g := m.Get({{ $FROM }}(k)); g != 42 {
