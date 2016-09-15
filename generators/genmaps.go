@@ -389,6 +389,19 @@ func Test{{ $TYPE }}Inc(t *testing.T) {
 		}
 	}
 }
+
+func Test{{ $TYPE }}Add(t *testing.T) {
+	m := New{{ $TYPE }}(13)
+	for i, k := range {{ $KEYS }} {
+		m.Put({{ $FROM }}(k), {{ $TO }}({{ $VALS }}[i]))
+	}
+	for i, k := range {{ $KEYS }} {
+		m.Add({{ $FROM }}(k), 3)
+		if g := m.Get({{ $FROM }}(k)); g != {{ $TO }}({{ $VALS }}[i])+3 {
+			t.Errorf("got %d, want 0\n", g, {{ $TO }}({{ $VALS }}[i])+3)
+		}
+	}
+}
 `
 
 var funcMap = template.FuncMap{
