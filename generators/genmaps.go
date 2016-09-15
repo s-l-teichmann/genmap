@@ -388,6 +388,13 @@ func Test{{ $TYPE }}Inc(t *testing.T) {
 			t.Errorf("got %d, want 0\n", g, {{ $TO }}({{ $VALS }}[i])+3)
 		}
 	}
+	m.Clear()
+	for _, k := range {{ $KEYS }} {
+		m.Inc({{ $FROM }}(k))
+		if g := m.Get({{ $FROM }}(k)); g != 1 {
+			t.Errorf("got %d, want 1\n", g)
+		}
+	}
 }
 
 func Test{{ $TYPE }}Add(t *testing.T) {
@@ -399,6 +406,13 @@ func Test{{ $TYPE }}Add(t *testing.T) {
 		m.Add({{ $FROM }}(k), 3)
 		if g := m.Get({{ $FROM }}(k)); g != {{ $TO }}({{ $VALS }}[i])+3 {
 			t.Errorf("got %d, want 0\n", g, {{ $TO }}({{ $VALS }}[i])+3)
+		}
+	}
+	m.Clear()
+	for _, k := range {{ $KEYS }} {
+		m.Add({{ $FROM }}(k), 42)
+		if g := m.Get({{ $FROM }}(k)); g != 42 {
+			t.Errorf("got %d, want 42\n", g)
 		}
 	}
 }
