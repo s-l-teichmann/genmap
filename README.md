@@ -71,7 +71,8 @@ Re-generate the maps with
     $ go generate
 
 For pull request ensure that the files are generated in a way
-that a `go fmt` call would not change them.
+that a `go fmt` call would not change them and the `go test -coverprofile=count`
+stays at 100%.
 
 ## License
 This is Free Software covered by the terms of the [MIT license](LICENSE).  
