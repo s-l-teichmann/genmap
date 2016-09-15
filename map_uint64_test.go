@@ -115,6 +115,35 @@ func TestMapUint64ToIntAdd(t *testing.T) {
 	}
 }
 
+func TestMapUint64ToIntVisit(t *testing.T) {
+	m := NewMapUint64ToInt(13)
+	for i, k := range unsignedData {
+		m.Put(uint64(k), int(signedData[i]))
+	}
+
+	n := make(map[uint64]int, len(unsignedData))
+
+	for i, k := range unsignedData {
+		n[uint64(k)] = int(signedData[i])
+	}
+
+	m.Visit(func(k uint64, v int) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
+	}
+}
+
 func TestMapUint64ToInt8Size(t *testing.T) {
 	m := NewMapUint64ToInt8(13)
 	if m.Size() != 0 {
@@ -217,6 +246,35 @@ func TestMapUint64ToInt8Add(t *testing.T) {
 		if g := m.Get(uint64(k)); g != 42 {
 			t.Errorf("got %d, want 42\n", g)
 		}
+	}
+}
+
+func TestMapUint64ToInt8Visit(t *testing.T) {
+	m := NewMapUint64ToInt8(13)
+	for i, k := range unsignedData {
+		m.Put(uint64(k), int8(signedData[i]))
+	}
+
+	n := make(map[uint64]int8, len(unsignedData))
+
+	for i, k := range unsignedData {
+		n[uint64(k)] = int8(signedData[i])
+	}
+
+	m.Visit(func(k uint64, v int8) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
 	}
 }
 
@@ -325,6 +383,35 @@ func TestMapUint64ToInt16Add(t *testing.T) {
 	}
 }
 
+func TestMapUint64ToInt16Visit(t *testing.T) {
+	m := NewMapUint64ToInt16(13)
+	for i, k := range unsignedData {
+		m.Put(uint64(k), int16(signedData[i]))
+	}
+
+	n := make(map[uint64]int16, len(unsignedData))
+
+	for i, k := range unsignedData {
+		n[uint64(k)] = int16(signedData[i])
+	}
+
+	m.Visit(func(k uint64, v int16) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
+	}
+}
+
 func TestMapUint64ToInt32Size(t *testing.T) {
 	m := NewMapUint64ToInt32(13)
 	if m.Size() != 0 {
@@ -427,6 +514,35 @@ func TestMapUint64ToInt32Add(t *testing.T) {
 		if g := m.Get(uint64(k)); g != 42 {
 			t.Errorf("got %d, want 42\n", g)
 		}
+	}
+}
+
+func TestMapUint64ToInt32Visit(t *testing.T) {
+	m := NewMapUint64ToInt32(13)
+	for i, k := range unsignedData {
+		m.Put(uint64(k), int32(signedData[i]))
+	}
+
+	n := make(map[uint64]int32, len(unsignedData))
+
+	for i, k := range unsignedData {
+		n[uint64(k)] = int32(signedData[i])
+	}
+
+	m.Visit(func(k uint64, v int32) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
 	}
 }
 
@@ -535,6 +651,35 @@ func TestMapUint64ToInt64Add(t *testing.T) {
 	}
 }
 
+func TestMapUint64ToInt64Visit(t *testing.T) {
+	m := NewMapUint64ToInt64(13)
+	for i, k := range unsignedData {
+		m.Put(uint64(k), int64(signedData[i]))
+	}
+
+	n := make(map[uint64]int64, len(unsignedData))
+
+	for i, k := range unsignedData {
+		n[uint64(k)] = int64(signedData[i])
+	}
+
+	m.Visit(func(k uint64, v int64) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
+	}
+}
+
 func TestMapUint64ToUintSize(t *testing.T) {
 	m := NewMapUint64ToUint(13)
 	if m.Size() != 0 {
@@ -637,6 +782,35 @@ func TestMapUint64ToUintAdd(t *testing.T) {
 		if g := m.Get(uint64(k)); g != 42 {
 			t.Errorf("got %d, want 42\n", g)
 		}
+	}
+}
+
+func TestMapUint64ToUintVisit(t *testing.T) {
+	m := NewMapUint64ToUint(13)
+	for i, k := range unsignedData {
+		m.Put(uint64(k), uint(unsignedData[i]))
+	}
+
+	n := make(map[uint64]uint, len(unsignedData))
+
+	for i, k := range unsignedData {
+		n[uint64(k)] = uint(unsignedData[i])
+	}
+
+	m.Visit(func(k uint64, v uint) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
 	}
 }
 
@@ -745,6 +919,35 @@ func TestMapUint64ToUint8Add(t *testing.T) {
 	}
 }
 
+func TestMapUint64ToUint8Visit(t *testing.T) {
+	m := NewMapUint64ToUint8(13)
+	for i, k := range unsignedData {
+		m.Put(uint64(k), uint8(unsignedData[i]))
+	}
+
+	n := make(map[uint64]uint8, len(unsignedData))
+
+	for i, k := range unsignedData {
+		n[uint64(k)] = uint8(unsignedData[i])
+	}
+
+	m.Visit(func(k uint64, v uint8) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
+	}
+}
+
 func TestMapUint64ToUint16Size(t *testing.T) {
 	m := NewMapUint64ToUint16(13)
 	if m.Size() != 0 {
@@ -847,6 +1050,35 @@ func TestMapUint64ToUint16Add(t *testing.T) {
 		if g := m.Get(uint64(k)); g != 42 {
 			t.Errorf("got %d, want 42\n", g)
 		}
+	}
+}
+
+func TestMapUint64ToUint16Visit(t *testing.T) {
+	m := NewMapUint64ToUint16(13)
+	for i, k := range unsignedData {
+		m.Put(uint64(k), uint16(unsignedData[i]))
+	}
+
+	n := make(map[uint64]uint16, len(unsignedData))
+
+	for i, k := range unsignedData {
+		n[uint64(k)] = uint16(unsignedData[i])
+	}
+
+	m.Visit(func(k uint64, v uint16) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
 	}
 }
 
@@ -955,6 +1187,35 @@ func TestMapUint64ToUint32Add(t *testing.T) {
 	}
 }
 
+func TestMapUint64ToUint32Visit(t *testing.T) {
+	m := NewMapUint64ToUint32(13)
+	for i, k := range unsignedData {
+		m.Put(uint64(k), uint32(unsignedData[i]))
+	}
+
+	n := make(map[uint64]uint32, len(unsignedData))
+
+	for i, k := range unsignedData {
+		n[uint64(k)] = uint32(unsignedData[i])
+	}
+
+	m.Visit(func(k uint64, v uint32) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
+	}
+}
+
 func TestMapUint64ToUint64Size(t *testing.T) {
 	m := NewMapUint64ToUint64(13)
 	if m.Size() != 0 {
@@ -1057,5 +1318,34 @@ func TestMapUint64ToUint64Add(t *testing.T) {
 		if g := m.Get(uint64(k)); g != 42 {
 			t.Errorf("got %d, want 42\n", g)
 		}
+	}
+}
+
+func TestMapUint64ToUint64Visit(t *testing.T) {
+	m := NewMapUint64ToUint64(13)
+	for i, k := range unsignedData {
+		m.Put(uint64(k), uint64(unsignedData[i]))
+	}
+
+	n := make(map[uint64]uint64, len(unsignedData))
+
+	for i, k := range unsignedData {
+		n[uint64(k)] = uint64(unsignedData[i])
+	}
+
+	m.Visit(func(k uint64, v uint64) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
 	}
 }

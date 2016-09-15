@@ -115,6 +115,35 @@ func TestMapInt8ToIntAdd(t *testing.T) {
 	}
 }
 
+func TestMapInt8ToIntVisit(t *testing.T) {
+	m := NewMapInt8ToInt(13)
+	for i, k := range signedData {
+		m.Put(int8(k), int(signedData[i]))
+	}
+
+	n := make(map[int8]int, len(signedData))
+
+	for i, k := range signedData {
+		n[int8(k)] = int(signedData[i])
+	}
+
+	m.Visit(func(k int8, v int) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
+	}
+}
+
 func TestMapInt8ToInt8Size(t *testing.T) {
 	m := NewMapInt8ToInt8(13)
 	if m.Size() != 0 {
@@ -217,6 +246,35 @@ func TestMapInt8ToInt8Add(t *testing.T) {
 		if g := m.Get(int8(k)); g != 42 {
 			t.Errorf("got %d, want 42\n", g)
 		}
+	}
+}
+
+func TestMapInt8ToInt8Visit(t *testing.T) {
+	m := NewMapInt8ToInt8(13)
+	for i, k := range signedData {
+		m.Put(int8(k), int8(signedData[i]))
+	}
+
+	n := make(map[int8]int8, len(signedData))
+
+	for i, k := range signedData {
+		n[int8(k)] = int8(signedData[i])
+	}
+
+	m.Visit(func(k int8, v int8) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
 	}
 }
 
@@ -325,6 +383,35 @@ func TestMapInt8ToInt16Add(t *testing.T) {
 	}
 }
 
+func TestMapInt8ToInt16Visit(t *testing.T) {
+	m := NewMapInt8ToInt16(13)
+	for i, k := range signedData {
+		m.Put(int8(k), int16(signedData[i]))
+	}
+
+	n := make(map[int8]int16, len(signedData))
+
+	for i, k := range signedData {
+		n[int8(k)] = int16(signedData[i])
+	}
+
+	m.Visit(func(k int8, v int16) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
+	}
+}
+
 func TestMapInt8ToInt32Size(t *testing.T) {
 	m := NewMapInt8ToInt32(13)
 	if m.Size() != 0 {
@@ -427,6 +514,35 @@ func TestMapInt8ToInt32Add(t *testing.T) {
 		if g := m.Get(int8(k)); g != 42 {
 			t.Errorf("got %d, want 42\n", g)
 		}
+	}
+}
+
+func TestMapInt8ToInt32Visit(t *testing.T) {
+	m := NewMapInt8ToInt32(13)
+	for i, k := range signedData {
+		m.Put(int8(k), int32(signedData[i]))
+	}
+
+	n := make(map[int8]int32, len(signedData))
+
+	for i, k := range signedData {
+		n[int8(k)] = int32(signedData[i])
+	}
+
+	m.Visit(func(k int8, v int32) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
 	}
 }
 
@@ -535,6 +651,35 @@ func TestMapInt8ToInt64Add(t *testing.T) {
 	}
 }
 
+func TestMapInt8ToInt64Visit(t *testing.T) {
+	m := NewMapInt8ToInt64(13)
+	for i, k := range signedData {
+		m.Put(int8(k), int64(signedData[i]))
+	}
+
+	n := make(map[int8]int64, len(signedData))
+
+	for i, k := range signedData {
+		n[int8(k)] = int64(signedData[i])
+	}
+
+	m.Visit(func(k int8, v int64) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
+	}
+}
+
 func TestMapInt8ToUintSize(t *testing.T) {
 	m := NewMapInt8ToUint(13)
 	if m.Size() != 0 {
@@ -637,6 +782,35 @@ func TestMapInt8ToUintAdd(t *testing.T) {
 		if g := m.Get(int8(k)); g != 42 {
 			t.Errorf("got %d, want 42\n", g)
 		}
+	}
+}
+
+func TestMapInt8ToUintVisit(t *testing.T) {
+	m := NewMapInt8ToUint(13)
+	for i, k := range signedData {
+		m.Put(int8(k), uint(unsignedData[i]))
+	}
+
+	n := make(map[int8]uint, len(signedData))
+
+	for i, k := range signedData {
+		n[int8(k)] = uint(unsignedData[i])
+	}
+
+	m.Visit(func(k int8, v uint) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
 	}
 }
 
@@ -745,6 +919,35 @@ func TestMapInt8ToUint8Add(t *testing.T) {
 	}
 }
 
+func TestMapInt8ToUint8Visit(t *testing.T) {
+	m := NewMapInt8ToUint8(13)
+	for i, k := range signedData {
+		m.Put(int8(k), uint8(unsignedData[i]))
+	}
+
+	n := make(map[int8]uint8, len(signedData))
+
+	for i, k := range signedData {
+		n[int8(k)] = uint8(unsignedData[i])
+	}
+
+	m.Visit(func(k int8, v uint8) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
+	}
+}
+
 func TestMapInt8ToUint16Size(t *testing.T) {
 	m := NewMapInt8ToUint16(13)
 	if m.Size() != 0 {
@@ -847,6 +1050,35 @@ func TestMapInt8ToUint16Add(t *testing.T) {
 		if g := m.Get(int8(k)); g != 42 {
 			t.Errorf("got %d, want 42\n", g)
 		}
+	}
+}
+
+func TestMapInt8ToUint16Visit(t *testing.T) {
+	m := NewMapInt8ToUint16(13)
+	for i, k := range signedData {
+		m.Put(int8(k), uint16(unsignedData[i]))
+	}
+
+	n := make(map[int8]uint16, len(signedData))
+
+	for i, k := range signedData {
+		n[int8(k)] = uint16(unsignedData[i])
+	}
+
+	m.Visit(func(k int8, v uint16) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
 	}
 }
 
@@ -955,6 +1187,35 @@ func TestMapInt8ToUint32Add(t *testing.T) {
 	}
 }
 
+func TestMapInt8ToUint32Visit(t *testing.T) {
+	m := NewMapInt8ToUint32(13)
+	for i, k := range signedData {
+		m.Put(int8(k), uint32(unsignedData[i]))
+	}
+
+	n := make(map[int8]uint32, len(signedData))
+
+	for i, k := range signedData {
+		n[int8(k)] = uint32(unsignedData[i])
+	}
+
+	m.Visit(func(k int8, v uint32) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
+	}
+}
+
 func TestMapInt8ToUint64Size(t *testing.T) {
 	m := NewMapInt8ToUint64(13)
 	if m.Size() != 0 {
@@ -1057,5 +1318,34 @@ func TestMapInt8ToUint64Add(t *testing.T) {
 		if g := m.Get(int8(k)); g != 42 {
 			t.Errorf("got %d, want 42\n", g)
 		}
+	}
+}
+
+func TestMapInt8ToUint64Visit(t *testing.T) {
+	m := NewMapInt8ToUint64(13)
+	for i, k := range signedData {
+		m.Put(int8(k), uint64(unsignedData[i]))
+	}
+
+	n := make(map[int8]uint64, len(signedData))
+
+	for i, k := range signedData {
+		n[int8(k)] = uint64(unsignedData[i])
+	}
+
+	m.Visit(func(k int8, v uint64) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
 	}
 }

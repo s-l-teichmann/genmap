@@ -416,6 +416,35 @@ func Test{{ $TYPE }}Add(t *testing.T) {
 		}
 	}
 }
+
+func Test{{ $TYPE }}Visit(t *testing.T) {
+	m := New{{ $TYPE }}(13)
+	for i, k := range {{ $KEYS }} {
+		m.Put({{ $FROM }}(k), {{ $TO }}({{ $VALS }}[i]))
+	}
+
+	n := make(map[{{ $FROM }}]{{ $TO }}, len({{ $KEYS }}))
+
+	for i, k := range {{ $KEYS }} {
+		n[{{ $FROM }}(k)] = {{ $TO }}({{ $VALS }}[i])
+	}
+
+	m.Visit(func(k {{ $FROM }}, v {{ $TO }}) {
+		g, ok := n[k]
+		if !ok {
+			t.Errorf("key %d not found.\n", k)
+			return
+		}
+		if g != v {
+			t.Errorf("key %d: got %d, want %d\n", k, v, g)
+		}
+		delete(n, k)
+	})
+
+	if len(n) > 0 {
+		t.Errorf("Size is %d, want 0\n", len(n))
+	}
+}
 `
 
 var funcMap = template.FuncMap{
