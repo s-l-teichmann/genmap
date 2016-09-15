@@ -45,6 +45,16 @@ func TestMapUint32ToIntContains(t *testing.T) {
 	}
 }
 
+func TestMapUint32ToIntGet(t *testing.T) {
+	m := NewMapUint32ToInt(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), int(signedData[i]))
+		if g := m.Get(uint32(k)); g != int(signedData[i]) {
+			t.Errorf("Get(%d) = %d, want %d\n", k, g, signedData[i])
+		}
+	}
+}
+
 func TestMapUint32ToInt8Size(t *testing.T) {
 	m := NewMapUint32ToInt8(13)
 	if m.Size() != 0 {
@@ -76,6 +86,16 @@ func TestMapUint32ToInt8Contains(t *testing.T) {
 		m.Remove(uint32(k))
 		if m.Contains(uint32(k)) {
 			t.Errorf("map contains %d\n", k)
+		}
+	}
+}
+
+func TestMapUint32ToInt8Get(t *testing.T) {
+	m := NewMapUint32ToInt8(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), int8(signedData[i]))
+		if g := m.Get(uint32(k)); g != int8(signedData[i]) {
+			t.Errorf("Get(%d) = %d, want %d\n", k, g, signedData[i])
 		}
 	}
 }
@@ -115,6 +135,16 @@ func TestMapUint32ToInt16Contains(t *testing.T) {
 	}
 }
 
+func TestMapUint32ToInt16Get(t *testing.T) {
+	m := NewMapUint32ToInt16(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), int16(signedData[i]))
+		if g := m.Get(uint32(k)); g != int16(signedData[i]) {
+			t.Errorf("Get(%d) = %d, want %d\n", k, g, signedData[i])
+		}
+	}
+}
+
 func TestMapUint32ToInt32Size(t *testing.T) {
 	m := NewMapUint32ToInt32(13)
 	if m.Size() != 0 {
@@ -146,6 +176,16 @@ func TestMapUint32ToInt32Contains(t *testing.T) {
 		m.Remove(uint32(k))
 		if m.Contains(uint32(k)) {
 			t.Errorf("map contains %d\n", k)
+		}
+	}
+}
+
+func TestMapUint32ToInt32Get(t *testing.T) {
+	m := NewMapUint32ToInt32(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), int32(signedData[i]))
+		if g := m.Get(uint32(k)); g != int32(signedData[i]) {
+			t.Errorf("Get(%d) = %d, want %d\n", k, g, signedData[i])
 		}
 	}
 }
@@ -185,6 +225,16 @@ func TestMapUint32ToInt64Contains(t *testing.T) {
 	}
 }
 
+func TestMapUint32ToInt64Get(t *testing.T) {
+	m := NewMapUint32ToInt64(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), int64(signedData[i]))
+		if g := m.Get(uint32(k)); g != int64(signedData[i]) {
+			t.Errorf("Get(%d) = %d, want %d\n", k, g, signedData[i])
+		}
+	}
+}
+
 func TestMapUint32ToUintSize(t *testing.T) {
 	m := NewMapUint32ToUint(13)
 	if m.Size() != 0 {
@@ -216,6 +266,16 @@ func TestMapUint32ToUintContains(t *testing.T) {
 		m.Remove(uint32(k))
 		if m.Contains(uint32(k)) {
 			t.Errorf("map contains %d\n", k)
+		}
+	}
+}
+
+func TestMapUint32ToUintGet(t *testing.T) {
+	m := NewMapUint32ToUint(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), uint(unsignedData[i]))
+		if g := m.Get(uint32(k)); g != uint(unsignedData[i]) {
+			t.Errorf("Get(%d) = %d, want %d\n", k, g, unsignedData[i])
 		}
 	}
 }
@@ -255,6 +315,16 @@ func TestMapUint32ToUint8Contains(t *testing.T) {
 	}
 }
 
+func TestMapUint32ToUint8Get(t *testing.T) {
+	m := NewMapUint32ToUint8(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), uint8(unsignedData[i]))
+		if g := m.Get(uint32(k)); g != uint8(unsignedData[i]) {
+			t.Errorf("Get(%d) = %d, want %d\n", k, g, unsignedData[i])
+		}
+	}
+}
+
 func TestMapUint32ToUint16Size(t *testing.T) {
 	m := NewMapUint32ToUint16(13)
 	if m.Size() != 0 {
@@ -286,6 +356,16 @@ func TestMapUint32ToUint16Contains(t *testing.T) {
 		m.Remove(uint32(k))
 		if m.Contains(uint32(k)) {
 			t.Errorf("map contains %d\n", k)
+		}
+	}
+}
+
+func TestMapUint32ToUint16Get(t *testing.T) {
+	m := NewMapUint32ToUint16(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), uint16(unsignedData[i]))
+		if g := m.Get(uint32(k)); g != uint16(unsignedData[i]) {
+			t.Errorf("Get(%d) = %d, want %d\n", k, g, unsignedData[i])
 		}
 	}
 }
@@ -325,6 +405,16 @@ func TestMapUint32ToUint32Contains(t *testing.T) {
 	}
 }
 
+func TestMapUint32ToUint32Get(t *testing.T) {
+	m := NewMapUint32ToUint32(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), uint32(unsignedData[i]))
+		if g := m.Get(uint32(k)); g != uint32(unsignedData[i]) {
+			t.Errorf("Get(%d) = %d, want %d\n", k, g, unsignedData[i])
+		}
+	}
+}
+
 func TestMapUint32ToUint64Size(t *testing.T) {
 	m := NewMapUint32ToUint64(13)
 	if m.Size() != 0 {
@@ -356,6 +446,16 @@ func TestMapUint32ToUint64Contains(t *testing.T) {
 		m.Remove(uint32(k))
 		if m.Contains(uint32(k)) {
 			t.Errorf("map contains %d\n", k)
+		}
+	}
+}
+
+func TestMapUint32ToUint64Get(t *testing.T) {
+	m := NewMapUint32ToUint64(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), uint64(unsignedData[i]))
+		if g := m.Get(uint32(k)); g != uint64(unsignedData[i]) {
+			t.Errorf("Get(%d) = %d, want %d\n", k, g, unsignedData[i])
 		}
 	}
 }

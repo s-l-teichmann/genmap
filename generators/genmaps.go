@@ -346,6 +346,16 @@ func Test{{ $TYPE }}Contains(t *testing.T) {
 		}
 	}
 }
+
+func Test{{ $TYPE }}Get(t *testing.T) {
+	m := New{{ $TYPE }}(13)
+	for i, k := range {{ $KEYS }} {
+		m.Put({{ $FROM }}(k), {{ $TO }}({{ $VALS }}[i]))
+		if g := m.Get({{ $FROM }}(k)); g != {{ $TO }}({{ $VALS }}[i]) {
+			t.Errorf("Get(%d) = %d, want %d\n", k, g, {{ $VALS }}[i])
+		}
+	}
+}
 `
 
 var funcMap = template.FuncMap{
