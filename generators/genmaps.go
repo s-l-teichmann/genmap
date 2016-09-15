@@ -360,6 +360,29 @@ func Test{{ $TYPE }}Get(t *testing.T) {
 	}
 }
 
+func Test{{ $TYPE }}Remove(t *testing.T) {
+	m := New{{ $TYPE }}(13)
+	// Used to trigger code path when all keys are
+	// hashed to same slot.
+	mask := ^(^0 << nextShiftPowerOfTwo(13))
+	for i, k := range {{ $KEYS }} {
+		if int(k)&mask == 0 {
+			m.Put({{ $FROM }}(k), {{ $TO }}({{ $VALS }}[i]))
+		}
+	}
+	s := m.Size()
+	for _, k := range {{ $KEYS }} {
+		if int(k)&mask == 0 {
+			m.Remove({{ $FROM }}(k))
+			s--
+			if l := m.Size(); l != s {
+				t.Errorf("key: %d size %d, want %d\n", k, l, s)
+			}
+		}
+	}
+
+}
+
 func Test{{ $TYPE }}Clear(t *testing.T) {
 	m := New{{ $TYPE }}(13)
 	for i, k := range {{ $KEYS }} {

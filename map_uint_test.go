@@ -59,6 +59,29 @@ func TestMapUintToIntGet(t *testing.T) {
 	}
 }
 
+func TestMapUintToIntRemove(t *testing.T) {
+	m := NewMapUintToInt(13)
+	// Used to trigger code path when all keys are
+	// hashed to same slot.
+	mask := ^(^0 << nextShiftPowerOfTwo(13))
+	for i, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Put(uint(k), int(signedData[i]))
+		}
+	}
+	s := m.Size()
+	for _, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Remove(uint(k))
+			s--
+			if l := m.Size(); l != s {
+				t.Errorf("key: %d size %d, want %d\n", k, l, s)
+			}
+		}
+	}
+
+}
+
 func TestMapUintToIntClear(t *testing.T) {
 	m := NewMapUintToInt(13)
 	for i, k := range unsignedData {
@@ -253,6 +276,29 @@ func TestMapUintToInt8Get(t *testing.T) {
 	if g := m.Get(0); g != 0 {
 		t.Errorf("Got %d, want 0\n", g)
 	}
+}
+
+func TestMapUintToInt8Remove(t *testing.T) {
+	m := NewMapUintToInt8(13)
+	// Used to trigger code path when all keys are
+	// hashed to same slot.
+	mask := ^(^0 << nextShiftPowerOfTwo(13))
+	for i, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Put(uint(k), int8(signedData[i]))
+		}
+	}
+	s := m.Size()
+	for _, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Remove(uint(k))
+			s--
+			if l := m.Size(); l != s {
+				t.Errorf("key: %d size %d, want %d\n", k, l, s)
+			}
+		}
+	}
+
 }
 
 func TestMapUintToInt8Clear(t *testing.T) {
@@ -451,6 +497,29 @@ func TestMapUintToInt16Get(t *testing.T) {
 	}
 }
 
+func TestMapUintToInt16Remove(t *testing.T) {
+	m := NewMapUintToInt16(13)
+	// Used to trigger code path when all keys are
+	// hashed to same slot.
+	mask := ^(^0 << nextShiftPowerOfTwo(13))
+	for i, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Put(uint(k), int16(signedData[i]))
+		}
+	}
+	s := m.Size()
+	for _, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Remove(uint(k))
+			s--
+			if l := m.Size(); l != s {
+				t.Errorf("key: %d size %d, want %d\n", k, l, s)
+			}
+		}
+	}
+
+}
+
 func TestMapUintToInt16Clear(t *testing.T) {
 	m := NewMapUintToInt16(13)
 	for i, k := range unsignedData {
@@ -645,6 +714,29 @@ func TestMapUintToInt32Get(t *testing.T) {
 	if g := m.Get(0); g != 0 {
 		t.Errorf("Got %d, want 0\n", g)
 	}
+}
+
+func TestMapUintToInt32Remove(t *testing.T) {
+	m := NewMapUintToInt32(13)
+	// Used to trigger code path when all keys are
+	// hashed to same slot.
+	mask := ^(^0 << nextShiftPowerOfTwo(13))
+	for i, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Put(uint(k), int32(signedData[i]))
+		}
+	}
+	s := m.Size()
+	for _, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Remove(uint(k))
+			s--
+			if l := m.Size(); l != s {
+				t.Errorf("key: %d size %d, want %d\n", k, l, s)
+			}
+		}
+	}
+
 }
 
 func TestMapUintToInt32Clear(t *testing.T) {
@@ -843,6 +935,29 @@ func TestMapUintToInt64Get(t *testing.T) {
 	}
 }
 
+func TestMapUintToInt64Remove(t *testing.T) {
+	m := NewMapUintToInt64(13)
+	// Used to trigger code path when all keys are
+	// hashed to same slot.
+	mask := ^(^0 << nextShiftPowerOfTwo(13))
+	for i, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Put(uint(k), int64(signedData[i]))
+		}
+	}
+	s := m.Size()
+	for _, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Remove(uint(k))
+			s--
+			if l := m.Size(); l != s {
+				t.Errorf("key: %d size %d, want %d\n", k, l, s)
+			}
+		}
+	}
+
+}
+
 func TestMapUintToInt64Clear(t *testing.T) {
 	m := NewMapUintToInt64(13)
 	for i, k := range unsignedData {
@@ -1037,6 +1152,29 @@ func TestMapUintToUintGet(t *testing.T) {
 	if g := m.Get(0); g != 0 {
 		t.Errorf("Got %d, want 0\n", g)
 	}
+}
+
+func TestMapUintToUintRemove(t *testing.T) {
+	m := NewMapUintToUint(13)
+	// Used to trigger code path when all keys are
+	// hashed to same slot.
+	mask := ^(^0 << nextShiftPowerOfTwo(13))
+	for i, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Put(uint(k), uint(unsignedData[i]))
+		}
+	}
+	s := m.Size()
+	for _, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Remove(uint(k))
+			s--
+			if l := m.Size(); l != s {
+				t.Errorf("key: %d size %d, want %d\n", k, l, s)
+			}
+		}
+	}
+
 }
 
 func TestMapUintToUintClear(t *testing.T) {
@@ -1235,6 +1373,29 @@ func TestMapUintToUint8Get(t *testing.T) {
 	}
 }
 
+func TestMapUintToUint8Remove(t *testing.T) {
+	m := NewMapUintToUint8(13)
+	// Used to trigger code path when all keys are
+	// hashed to same slot.
+	mask := ^(^0 << nextShiftPowerOfTwo(13))
+	for i, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Put(uint(k), uint8(unsignedData[i]))
+		}
+	}
+	s := m.Size()
+	for _, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Remove(uint(k))
+			s--
+			if l := m.Size(); l != s {
+				t.Errorf("key: %d size %d, want %d\n", k, l, s)
+			}
+		}
+	}
+
+}
+
 func TestMapUintToUint8Clear(t *testing.T) {
 	m := NewMapUintToUint8(13)
 	for i, k := range unsignedData {
@@ -1429,6 +1590,29 @@ func TestMapUintToUint16Get(t *testing.T) {
 	if g := m.Get(0); g != 0 {
 		t.Errorf("Got %d, want 0\n", g)
 	}
+}
+
+func TestMapUintToUint16Remove(t *testing.T) {
+	m := NewMapUintToUint16(13)
+	// Used to trigger code path when all keys are
+	// hashed to same slot.
+	mask := ^(^0 << nextShiftPowerOfTwo(13))
+	for i, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Put(uint(k), uint16(unsignedData[i]))
+		}
+	}
+	s := m.Size()
+	for _, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Remove(uint(k))
+			s--
+			if l := m.Size(); l != s {
+				t.Errorf("key: %d size %d, want %d\n", k, l, s)
+			}
+		}
+	}
+
 }
 
 func TestMapUintToUint16Clear(t *testing.T) {
@@ -1627,6 +1811,29 @@ func TestMapUintToUint32Get(t *testing.T) {
 	}
 }
 
+func TestMapUintToUint32Remove(t *testing.T) {
+	m := NewMapUintToUint32(13)
+	// Used to trigger code path when all keys are
+	// hashed to same slot.
+	mask := ^(^0 << nextShiftPowerOfTwo(13))
+	for i, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Put(uint(k), uint32(unsignedData[i]))
+		}
+	}
+	s := m.Size()
+	for _, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Remove(uint(k))
+			s--
+			if l := m.Size(); l != s {
+				t.Errorf("key: %d size %d, want %d\n", k, l, s)
+			}
+		}
+	}
+
+}
+
 func TestMapUintToUint32Clear(t *testing.T) {
 	m := NewMapUintToUint32(13)
 	for i, k := range unsignedData {
@@ -1821,6 +2028,29 @@ func TestMapUintToUint64Get(t *testing.T) {
 	if g := m.Get(0); g != 0 {
 		t.Errorf("Got %d, want 0\n", g)
 	}
+}
+
+func TestMapUintToUint64Remove(t *testing.T) {
+	m := NewMapUintToUint64(13)
+	// Used to trigger code path when all keys are
+	// hashed to same slot.
+	mask := ^(^0 << nextShiftPowerOfTwo(13))
+	for i, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Put(uint(k), uint64(unsignedData[i]))
+		}
+	}
+	s := m.Size()
+	for _, k := range unsignedData {
+		if int(k)&mask == 0 {
+			m.Remove(uint(k))
+			s--
+			if l := m.Size(); l != s {
+				t.Errorf("key: %d size %d, want %d\n", k, l, s)
+			}
+		}
+	}
+
 }
 
 func TestMapUintToUint64Clear(t *testing.T) {
