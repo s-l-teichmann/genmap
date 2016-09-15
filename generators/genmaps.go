@@ -421,6 +421,21 @@ func Test{{ $TYPE }}Add(t *testing.T) {
 	}
 }
 
+func Test{{ $TYPE }}Put(t *testing.T) {
+	m := New{{ $TYPE }}(13)
+	for i, k := range {{ $KEYS }} {
+		m.Put({{ $FROM }}(k), {{ $TO }}({{ $VALS }}[i]))
+	}
+	for _, k := range {{ $KEYS }} {
+		m.Put({{ $FROM }}(k), m.Get({{ $FROM }}(k))+3)
+	}
+	for i, k := range {{ $KEYS }} {
+		if g := m.Get({{ $FROM }}(k)); g != {{ $TO }}({{ $VALS }}[i])+3 {
+			t.Errorf("got %d, want 0\n", g, {{ $TO }}({{ $VALS }}[i])+3)
+		}
+	}
+}
+
 func Test{{ $TYPE }}Visit(t *testing.T) {
 	m := New{{ $TYPE }}(13)
 	for i, k := range {{ $KEYS }} {
