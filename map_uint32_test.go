@@ -119,6 +119,23 @@ func TestMapUint32ToIntAdd(t *testing.T) {
 	}
 }
 
+func TestMapUint32ToIntModify(t *testing.T) {
+	m := NewMapUint32ToInt(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), int(signedData[i]))
+	}
+	for _, k := range unsignedData {
+		m.Modify(uint32(k), func(v *int) {
+			*v += 3
+		})
+	}
+	for i, k := range unsignedData {
+		if g := m.Get(uint32(k)); g != int(signedData[i])+3 {
+			t.Errorf("got %d, want 0\n", g, int(signedData[i])+3)
+		}
+	}
+}
+
 func TestMapUint32ToIntPut(t *testing.T) {
 	m := NewMapUint32ToInt(13)
 	for i, k := range unsignedData {
@@ -268,6 +285,23 @@ func TestMapUint32ToInt8Add(t *testing.T) {
 		m.Add(uint32(k), 42)
 		if g := m.Get(uint32(k)); g != 42 {
 			t.Errorf("got %d, want 42\n", g)
+		}
+	}
+}
+
+func TestMapUint32ToInt8Modify(t *testing.T) {
+	m := NewMapUint32ToInt8(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), int8(signedData[i]))
+	}
+	for _, k := range unsignedData {
+		m.Modify(uint32(k), func(v *int8) {
+			*v += 3
+		})
+	}
+	for i, k := range unsignedData {
+		if g := m.Get(uint32(k)); g != int8(signedData[i])+3 {
+			t.Errorf("got %d, want 0\n", g, int8(signedData[i])+3)
 		}
 	}
 }
@@ -425,6 +459,23 @@ func TestMapUint32ToInt16Add(t *testing.T) {
 	}
 }
 
+func TestMapUint32ToInt16Modify(t *testing.T) {
+	m := NewMapUint32ToInt16(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), int16(signedData[i]))
+	}
+	for _, k := range unsignedData {
+		m.Modify(uint32(k), func(v *int16) {
+			*v += 3
+		})
+	}
+	for i, k := range unsignedData {
+		if g := m.Get(uint32(k)); g != int16(signedData[i])+3 {
+			t.Errorf("got %d, want 0\n", g, int16(signedData[i])+3)
+		}
+	}
+}
+
 func TestMapUint32ToInt16Put(t *testing.T) {
 	m := NewMapUint32ToInt16(13)
 	for i, k := range unsignedData {
@@ -574,6 +625,23 @@ func TestMapUint32ToInt32Add(t *testing.T) {
 		m.Add(uint32(k), 42)
 		if g := m.Get(uint32(k)); g != 42 {
 			t.Errorf("got %d, want 42\n", g)
+		}
+	}
+}
+
+func TestMapUint32ToInt32Modify(t *testing.T) {
+	m := NewMapUint32ToInt32(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), int32(signedData[i]))
+	}
+	for _, k := range unsignedData {
+		m.Modify(uint32(k), func(v *int32) {
+			*v += 3
+		})
+	}
+	for i, k := range unsignedData {
+		if g := m.Get(uint32(k)); g != int32(signedData[i])+3 {
+			t.Errorf("got %d, want 0\n", g, int32(signedData[i])+3)
 		}
 	}
 }
@@ -731,6 +799,23 @@ func TestMapUint32ToInt64Add(t *testing.T) {
 	}
 }
 
+func TestMapUint32ToInt64Modify(t *testing.T) {
+	m := NewMapUint32ToInt64(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), int64(signedData[i]))
+	}
+	for _, k := range unsignedData {
+		m.Modify(uint32(k), func(v *int64) {
+			*v += 3
+		})
+	}
+	for i, k := range unsignedData {
+		if g := m.Get(uint32(k)); g != int64(signedData[i])+3 {
+			t.Errorf("got %d, want 0\n", g, int64(signedData[i])+3)
+		}
+	}
+}
+
 func TestMapUint32ToInt64Put(t *testing.T) {
 	m := NewMapUint32ToInt64(13)
 	for i, k := range unsignedData {
@@ -880,6 +965,23 @@ func TestMapUint32ToUintAdd(t *testing.T) {
 		m.Add(uint32(k), 42)
 		if g := m.Get(uint32(k)); g != 42 {
 			t.Errorf("got %d, want 42\n", g)
+		}
+	}
+}
+
+func TestMapUint32ToUintModify(t *testing.T) {
+	m := NewMapUint32ToUint(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), uint(unsignedData[i]))
+	}
+	for _, k := range unsignedData {
+		m.Modify(uint32(k), func(v *uint) {
+			*v += 3
+		})
+	}
+	for i, k := range unsignedData {
+		if g := m.Get(uint32(k)); g != uint(unsignedData[i])+3 {
+			t.Errorf("got %d, want 0\n", g, uint(unsignedData[i])+3)
 		}
 	}
 }
@@ -1037,6 +1139,23 @@ func TestMapUint32ToUint8Add(t *testing.T) {
 	}
 }
 
+func TestMapUint32ToUint8Modify(t *testing.T) {
+	m := NewMapUint32ToUint8(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), uint8(unsignedData[i]))
+	}
+	for _, k := range unsignedData {
+		m.Modify(uint32(k), func(v *uint8) {
+			*v += 3
+		})
+	}
+	for i, k := range unsignedData {
+		if g := m.Get(uint32(k)); g != uint8(unsignedData[i])+3 {
+			t.Errorf("got %d, want 0\n", g, uint8(unsignedData[i])+3)
+		}
+	}
+}
+
 func TestMapUint32ToUint8Put(t *testing.T) {
 	m := NewMapUint32ToUint8(13)
 	for i, k := range unsignedData {
@@ -1186,6 +1305,23 @@ func TestMapUint32ToUint16Add(t *testing.T) {
 		m.Add(uint32(k), 42)
 		if g := m.Get(uint32(k)); g != 42 {
 			t.Errorf("got %d, want 42\n", g)
+		}
+	}
+}
+
+func TestMapUint32ToUint16Modify(t *testing.T) {
+	m := NewMapUint32ToUint16(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), uint16(unsignedData[i]))
+	}
+	for _, k := range unsignedData {
+		m.Modify(uint32(k), func(v *uint16) {
+			*v += 3
+		})
+	}
+	for i, k := range unsignedData {
+		if g := m.Get(uint32(k)); g != uint16(unsignedData[i])+3 {
+			t.Errorf("got %d, want 0\n", g, uint16(unsignedData[i])+3)
 		}
 	}
 }
@@ -1343,6 +1479,23 @@ func TestMapUint32ToUint32Add(t *testing.T) {
 	}
 }
 
+func TestMapUint32ToUint32Modify(t *testing.T) {
+	m := NewMapUint32ToUint32(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), uint32(unsignedData[i]))
+	}
+	for _, k := range unsignedData {
+		m.Modify(uint32(k), func(v *uint32) {
+			*v += 3
+		})
+	}
+	for i, k := range unsignedData {
+		if g := m.Get(uint32(k)); g != uint32(unsignedData[i])+3 {
+			t.Errorf("got %d, want 0\n", g, uint32(unsignedData[i])+3)
+		}
+	}
+}
+
 func TestMapUint32ToUint32Put(t *testing.T) {
 	m := NewMapUint32ToUint32(13)
 	for i, k := range unsignedData {
@@ -1492,6 +1645,23 @@ func TestMapUint32ToUint64Add(t *testing.T) {
 		m.Add(uint32(k), 42)
 		if g := m.Get(uint32(k)); g != 42 {
 			t.Errorf("got %d, want 42\n", g)
+		}
+	}
+}
+
+func TestMapUint32ToUint64Modify(t *testing.T) {
+	m := NewMapUint32ToUint64(13)
+	for i, k := range unsignedData {
+		m.Put(uint32(k), uint64(unsignedData[i]))
+	}
+	for _, k := range unsignedData {
+		m.Modify(uint32(k), func(v *uint64) {
+			*v += 3
+		})
+	}
+	for i, k := range unsignedData {
+		if g := m.Get(uint32(k)); g != uint64(unsignedData[i])+3 {
+			t.Errorf("got %d, want 0\n", g, uint64(unsignedData[i])+3)
 		}
 	}
 }
