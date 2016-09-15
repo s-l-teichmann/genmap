@@ -32,7 +32,7 @@ var types = []typ{
 	{"uint64", false},
 }
 
-var headerTmplTxt = `// THIS IS A MACHINE GENERATED FILE!
+var headerMapsTmplTxt = `// THIS IS A MACHINE GENERATED FILE!
 // BE CAREFUL WITH EDITING BY HAND.
 //
 // This is Free Software covered by the terms of the MIT license.
@@ -41,6 +41,19 @@ var headerTmplTxt = `// THIS IS A MACHINE GENERATED FILE!
 // See the full list of contributors in the CONTRIBUTORS file.
 
 package genmap
+`
+
+var headerTestsTmplTxt = `// THIS IS A MACHINE GENERATED FILE!
+// BE CAREFUL WITH EDITING BY HAND.
+//
+// This is Free Software covered by the terms of the MIT license.
+// See LICENSE file for details.
+// (c) 2016 by Sascha L. Teichmann.
+// See the full list of contributors in the CONTRIBUTORS file.
+
+package genmap
+
+import "testing"
 `
 
 var mapsTmplTxt = `
@@ -296,18 +309,42 @@ var testsTmplText = `
 {{- $T     := $TO | title -}}
 {{- $TYPE  := printf "Map%sTo%s" $F $T -}}
 {{- $ENTRY := printf "entry%sTo%s" $F $T -}}
+{{- $KEYS  := or (and .From.Signed "signedData") "unsignedData" -}}
+{{- $VALS  := or (and .To.Signed "signedData") "unsignedData" -}}
 
-// TODO: Implement tests for {{ $TYPE }}.
+func Test{{ $TYPE }}Size(t *testing.T) {
+	m := New{{ $TYPE }}(13)
+	if m.Size() != 0 {
+		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+	for i, k := range {{ $KEYS }} {
+		m.Put({{ $FROM }}(k), {{ $TO }}({{ $VALS }}[i]))
+		if m.Size() != i+1 {
+			t.Errorf("map size is %d, want %d\n", m.Size(), i+1)
+		}
+	}
+	for i, k := range {{ $KEYS }} {
+		m.Remove({{ $FROM }}(k))
+		if want := len({{ $KEYS }}) - (i + 1); m.Size() != want {
+			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
 `
 
 var funcMap = template.FuncMap{
 	"title": strings.Title,
 }
 
+func compileTemplate(name, txt string) *template.Template {
+	return template.Must(template.New(name).Funcs(funcMap).Parse(txt))
+}
+
 var (
-	headerTmpl = template.Must(template.New("header").Funcs(funcMap).Parse(headerTmplTxt))
-	mapsTmpl   = template.Must(template.New("maps").Funcs(funcMap).Parse(mapsTmplTxt))
-	testsTmpl  = template.Must(template.New("tests").Funcs(funcMap).Parse(testsTmplText))
+	headerMapsTmpl  = compileTemplate("hmaps", headerMapsTmplTxt)
+	headerTestsTmpl = compileTemplate("htests", headerTestsTmplTxt)
+	mapsTmpl        = compileTemplate("maps", mapsTmplTxt)
+	testsTmpl       = compileTemplate("tests", testsTmplText)
 )
 
 type parameters struct {
@@ -325,7 +362,7 @@ func generateMaps(t *typ) error {
 	}
 	out := bufio.NewWriter(f)
 
-	if err = headerTmpl.Execute(out, nil); err != nil {
+	if err = headerMapsTmpl.Execute(out, nil); err != nil {
 		log.Printf("templating header %s failed: %v\n", filename, err)
 		f.Close()
 		return err
@@ -358,7 +395,7 @@ func generateTests(t *typ) error {
 	}
 	out := bufio.NewWriter(f)
 
-	if err = headerTmpl.Execute(out, nil); err != nil {
+	if err = headerTestsTmpl.Execute(out, nil); err != nil {
 		f.Close()
 		return err
 	}

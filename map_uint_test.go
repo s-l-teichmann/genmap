@@ -8,22 +8,194 @@
 
 package genmap
 
-// TODO: Implement tests for MapUintToInt.
+import "testing"
 
-// TODO: Implement tests for MapUintToInt8.
+func TestMapUintToIntSize(t *testing.T) {
+	m := NewMapUintToInt(13)
+	if m.Size() != 0 {
+		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+	for i, k := range unsignedData {
+		m.Put(uint(k), int(signedData[i]))
+		if m.Size() != i+1 {
+			t.Errorf("map size is %d, want %d\n", m.Size(), i+1)
+		}
+	}
+	for i, k := range unsignedData {
+		m.Remove(uint(k))
+		if want := len(unsignedData) - (i + 1); m.Size() != want {
+			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
 
-// TODO: Implement tests for MapUintToInt16.
+func TestMapUintToInt8Size(t *testing.T) {
+	m := NewMapUintToInt8(13)
+	if m.Size() != 0 {
+		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+	for i, k := range unsignedData {
+		m.Put(uint(k), int8(signedData[i]))
+		if m.Size() != i+1 {
+			t.Errorf("map size is %d, want %d\n", m.Size(), i+1)
+		}
+	}
+	for i, k := range unsignedData {
+		m.Remove(uint(k))
+		if want := len(unsignedData) - (i + 1); m.Size() != want {
+			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
 
-// TODO: Implement tests for MapUintToInt32.
+func TestMapUintToInt16Size(t *testing.T) {
+	m := NewMapUintToInt16(13)
+	if m.Size() != 0 {
+		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+	for i, k := range unsignedData {
+		m.Put(uint(k), int16(signedData[i]))
+		if m.Size() != i+1 {
+			t.Errorf("map size is %d, want %d\n", m.Size(), i+1)
+		}
+	}
+	for i, k := range unsignedData {
+		m.Remove(uint(k))
+		if want := len(unsignedData) - (i + 1); m.Size() != want {
+			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
 
-// TODO: Implement tests for MapUintToInt64.
+func TestMapUintToInt32Size(t *testing.T) {
+	m := NewMapUintToInt32(13)
+	if m.Size() != 0 {
+		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+	for i, k := range unsignedData {
+		m.Put(uint(k), int32(signedData[i]))
+		if m.Size() != i+1 {
+			t.Errorf("map size is %d, want %d\n", m.Size(), i+1)
+		}
+	}
+	for i, k := range unsignedData {
+		m.Remove(uint(k))
+		if want := len(unsignedData) - (i + 1); m.Size() != want {
+			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
 
-// TODO: Implement tests for MapUintToUint.
+func TestMapUintToInt64Size(t *testing.T) {
+	m := NewMapUintToInt64(13)
+	if m.Size() != 0 {
+		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+	for i, k := range unsignedData {
+		m.Put(uint(k), int64(signedData[i]))
+		if m.Size() != i+1 {
+			t.Errorf("map size is %d, want %d\n", m.Size(), i+1)
+		}
+	}
+	for i, k := range unsignedData {
+		m.Remove(uint(k))
+		if want := len(unsignedData) - (i + 1); m.Size() != want {
+			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
 
-// TODO: Implement tests for MapUintToUint8.
+func TestMapUintToUintSize(t *testing.T) {
+	m := NewMapUintToUint(13)
+	if m.Size() != 0 {
+		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+	for i, k := range unsignedData {
+		m.Put(uint(k), uint(unsignedData[i]))
+		if m.Size() != i+1 {
+			t.Errorf("map size is %d, want %d\n", m.Size(), i+1)
+		}
+	}
+	for i, k := range unsignedData {
+		m.Remove(uint(k))
+		if want := len(unsignedData) - (i + 1); m.Size() != want {
+			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
 
-// TODO: Implement tests for MapUintToUint16.
+func TestMapUintToUint8Size(t *testing.T) {
+	m := NewMapUintToUint8(13)
+	if m.Size() != 0 {
+		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+	for i, k := range unsignedData {
+		m.Put(uint(k), uint8(unsignedData[i]))
+		if m.Size() != i+1 {
+			t.Errorf("map size is %d, want %d\n", m.Size(), i+1)
+		}
+	}
+	for i, k := range unsignedData {
+		m.Remove(uint(k))
+		if want := len(unsignedData) - (i + 1); m.Size() != want {
+			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
 
-// TODO: Implement tests for MapUintToUint32.
+func TestMapUintToUint16Size(t *testing.T) {
+	m := NewMapUintToUint16(13)
+	if m.Size() != 0 {
+		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+	for i, k := range unsignedData {
+		m.Put(uint(k), uint16(unsignedData[i]))
+		if m.Size() != i+1 {
+			t.Errorf("map size is %d, want %d\n", m.Size(), i+1)
+		}
+	}
+	for i, k := range unsignedData {
+		m.Remove(uint(k))
+		if want := len(unsignedData) - (i + 1); m.Size() != want {
+			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
 
-// TODO: Implement tests for MapUintToUint64.
+func TestMapUintToUint32Size(t *testing.T) {
+	m := NewMapUintToUint32(13)
+	if m.Size() != 0 {
+		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+	for i, k := range unsignedData {
+		m.Put(uint(k), uint32(unsignedData[i]))
+		if m.Size() != i+1 {
+			t.Errorf("map size is %d, want %d\n", m.Size(), i+1)
+		}
+	}
+	for i, k := range unsignedData {
+		m.Remove(uint(k))
+		if want := len(unsignedData) - (i + 1); m.Size() != want {
+			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
+
+func TestMapUintToUint64Size(t *testing.T) {
+	m := NewMapUintToUint64(13)
+	if m.Size() != 0 {
+		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+	for i, k := range unsignedData {
+		m.Put(uint(k), uint64(unsignedData[i]))
+		if m.Size() != i+1 {
+			t.Errorf("map size is %d, want %d\n", m.Size(), i+1)
+		}
+	}
+	for i, k := range unsignedData {
+		m.Remove(uint(k))
+		if want := len(unsignedData) - (i + 1); m.Size() != want {
+			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
