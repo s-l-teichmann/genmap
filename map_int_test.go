@@ -29,6 +29,22 @@ func TestMapIntToIntSize(t *testing.T) {
 	}
 }
 
+func TestMapIntToIntContains(t *testing.T) {
+	m := NewMapIntToInt(13)
+	for i, k := range signedData {
+		m.Put(int(k), int(signedData[i]))
+		if !m.Contains(int(k)) {
+			t.Errorf("map does not contain %d\n", k)
+		}
+	}
+	for _, k := range signedData {
+		m.Remove(int(k))
+		if m.Contains(int(k)) {
+			t.Errorf("map contains %d\n", k)
+		}
+	}
+}
+
 func TestMapIntToInt8Size(t *testing.T) {
 	m := NewMapIntToInt8(13)
 	if m.Size() != 0 {
@@ -44,6 +60,22 @@ func TestMapIntToInt8Size(t *testing.T) {
 		m.Remove(int(k))
 		if want := len(signedData) - (i + 1); m.Size() != want {
 			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
+
+func TestMapIntToInt8Contains(t *testing.T) {
+	m := NewMapIntToInt8(13)
+	for i, k := range signedData {
+		m.Put(int(k), int8(signedData[i]))
+		if !m.Contains(int(k)) {
+			t.Errorf("map does not contain %d\n", k)
+		}
+	}
+	for _, k := range signedData {
+		m.Remove(int(k))
+		if m.Contains(int(k)) {
+			t.Errorf("map contains %d\n", k)
 		}
 	}
 }
@@ -67,6 +99,22 @@ func TestMapIntToInt16Size(t *testing.T) {
 	}
 }
 
+func TestMapIntToInt16Contains(t *testing.T) {
+	m := NewMapIntToInt16(13)
+	for i, k := range signedData {
+		m.Put(int(k), int16(signedData[i]))
+		if !m.Contains(int(k)) {
+			t.Errorf("map does not contain %d\n", k)
+		}
+	}
+	for _, k := range signedData {
+		m.Remove(int(k))
+		if m.Contains(int(k)) {
+			t.Errorf("map contains %d\n", k)
+		}
+	}
+}
+
 func TestMapIntToInt32Size(t *testing.T) {
 	m := NewMapIntToInt32(13)
 	if m.Size() != 0 {
@@ -82,6 +130,22 @@ func TestMapIntToInt32Size(t *testing.T) {
 		m.Remove(int(k))
 		if want := len(signedData) - (i + 1); m.Size() != want {
 			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
+
+func TestMapIntToInt32Contains(t *testing.T) {
+	m := NewMapIntToInt32(13)
+	for i, k := range signedData {
+		m.Put(int(k), int32(signedData[i]))
+		if !m.Contains(int(k)) {
+			t.Errorf("map does not contain %d\n", k)
+		}
+	}
+	for _, k := range signedData {
+		m.Remove(int(k))
+		if m.Contains(int(k)) {
+			t.Errorf("map contains %d\n", k)
 		}
 	}
 }
@@ -105,6 +169,22 @@ func TestMapIntToInt64Size(t *testing.T) {
 	}
 }
 
+func TestMapIntToInt64Contains(t *testing.T) {
+	m := NewMapIntToInt64(13)
+	for i, k := range signedData {
+		m.Put(int(k), int64(signedData[i]))
+		if !m.Contains(int(k)) {
+			t.Errorf("map does not contain %d\n", k)
+		}
+	}
+	for _, k := range signedData {
+		m.Remove(int(k))
+		if m.Contains(int(k)) {
+			t.Errorf("map contains %d\n", k)
+		}
+	}
+}
+
 func TestMapIntToUintSize(t *testing.T) {
 	m := NewMapIntToUint(13)
 	if m.Size() != 0 {
@@ -120,6 +200,22 @@ func TestMapIntToUintSize(t *testing.T) {
 		m.Remove(int(k))
 		if want := len(signedData) - (i + 1); m.Size() != want {
 			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
+
+func TestMapIntToUintContains(t *testing.T) {
+	m := NewMapIntToUint(13)
+	for i, k := range signedData {
+		m.Put(int(k), uint(unsignedData[i]))
+		if !m.Contains(int(k)) {
+			t.Errorf("map does not contain %d\n", k)
+		}
+	}
+	for _, k := range signedData {
+		m.Remove(int(k))
+		if m.Contains(int(k)) {
+			t.Errorf("map contains %d\n", k)
 		}
 	}
 }
@@ -143,6 +239,22 @@ func TestMapIntToUint8Size(t *testing.T) {
 	}
 }
 
+func TestMapIntToUint8Contains(t *testing.T) {
+	m := NewMapIntToUint8(13)
+	for i, k := range signedData {
+		m.Put(int(k), uint8(unsignedData[i]))
+		if !m.Contains(int(k)) {
+			t.Errorf("map does not contain %d\n", k)
+		}
+	}
+	for _, k := range signedData {
+		m.Remove(int(k))
+		if m.Contains(int(k)) {
+			t.Errorf("map contains %d\n", k)
+		}
+	}
+}
+
 func TestMapIntToUint16Size(t *testing.T) {
 	m := NewMapIntToUint16(13)
 	if m.Size() != 0 {
@@ -158,6 +270,22 @@ func TestMapIntToUint16Size(t *testing.T) {
 		m.Remove(int(k))
 		if want := len(signedData) - (i + 1); m.Size() != want {
 			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
+
+func TestMapIntToUint16Contains(t *testing.T) {
+	m := NewMapIntToUint16(13)
+	for i, k := range signedData {
+		m.Put(int(k), uint16(unsignedData[i]))
+		if !m.Contains(int(k)) {
+			t.Errorf("map does not contain %d\n", k)
+		}
+	}
+	for _, k := range signedData {
+		m.Remove(int(k))
+		if m.Contains(int(k)) {
+			t.Errorf("map contains %d\n", k)
 		}
 	}
 }
@@ -181,6 +309,22 @@ func TestMapIntToUint32Size(t *testing.T) {
 	}
 }
 
+func TestMapIntToUint32Contains(t *testing.T) {
+	m := NewMapIntToUint32(13)
+	for i, k := range signedData {
+		m.Put(int(k), uint32(unsignedData[i]))
+		if !m.Contains(int(k)) {
+			t.Errorf("map does not contain %d\n", k)
+		}
+	}
+	for _, k := range signedData {
+		m.Remove(int(k))
+		if m.Contains(int(k)) {
+			t.Errorf("map contains %d\n", k)
+		}
+	}
+}
+
 func TestMapIntToUint64Size(t *testing.T) {
 	m := NewMapIntToUint64(13)
 	if m.Size() != 0 {
@@ -196,6 +340,22 @@ func TestMapIntToUint64Size(t *testing.T) {
 		m.Remove(int(k))
 		if want := len(signedData) - (i + 1); m.Size() != want {
 			t.Errorf("map size is %d, want %d\n", m.Size(), want)
+		}
+	}
+}
+
+func TestMapIntToUint64Contains(t *testing.T) {
+	m := NewMapIntToUint64(13)
+	for i, k := range signedData {
+		m.Put(int(k), uint64(unsignedData[i]))
+		if !m.Contains(int(k)) {
+			t.Errorf("map does not contain %d\n", k)
+		}
+	}
+	for _, k := range signedData {
+		m.Remove(int(k))
+		if m.Contains(int(k)) {
+			t.Errorf("map contains %d\n", k)
 		}
 	}
 }

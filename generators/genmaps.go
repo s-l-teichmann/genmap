@@ -330,6 +330,22 @@ func Test{{ $TYPE }}Size(t *testing.T) {
 		}
 	}
 }
+
+func Test{{ $TYPE }}Contains(t *testing.T) {
+	m := New{{ $TYPE }}(13)
+	for i, k := range {{ $KEYS }} {
+		m.Put({{ $FROM }}(k), {{ $TO }}({{ $VALS }}[i]))
+		if !m.Contains({{ $FROM }}(k)) {
+			t.Errorf("map does not contain %d\n", k)
+		}
+	}
+	for _, k := range {{ $KEYS }} {
+		m.Remove({{ $FROM }}(k))
+		if m.Contains({{ $FROM }}(k)) {
+			t.Errorf("map contains %d\n", k)
+		}
+	}
+}
 `
 
 var funcMap = template.FuncMap{
