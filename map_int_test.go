@@ -73,6 +73,21 @@ func TestMapIntToIntClear(t *testing.T) {
 	}
 }
 
+func TestMapIntToIntInc(t *testing.T) {
+	m := NewMapIntToInt(13)
+	for i, k := range signedData {
+		m.Put(int(k), int(signedData[i]))
+	}
+	for i, k := range signedData {
+		m.Inc(int(k))
+		m.Inc(int(k))
+		m.Inc(int(k))
+		if g := m.Get(int(k)); g != int(signedData[i]) + 3 {
+			t.Errorf("got %d, want 0\n", g, int(signedData[i]) + 3)
+		}
+	}
+}
+
 func TestMapIntToInt8Size(t *testing.T) {
 	m := NewMapIntToInt8(13)
 	if m.Size() != 0 {
@@ -133,6 +148,21 @@ func TestMapIntToInt8Clear(t *testing.T) {
 	m.Clear()
 	if m.Size() != 0 {
 		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+}
+
+func TestMapIntToInt8Inc(t *testing.T) {
+	m := NewMapIntToInt8(13)
+	for i, k := range signedData {
+		m.Put(int(k), int8(signedData[i]))
+	}
+	for i, k := range signedData {
+		m.Inc(int(k))
+		m.Inc(int(k))
+		m.Inc(int(k))
+		if g := m.Get(int(k)); g != int8(signedData[i]) + 3 {
+			t.Errorf("got %d, want 0\n", g, int8(signedData[i]) + 3)
+		}
 	}
 }
 
@@ -199,6 +229,21 @@ func TestMapIntToInt16Clear(t *testing.T) {
 	}
 }
 
+func TestMapIntToInt16Inc(t *testing.T) {
+	m := NewMapIntToInt16(13)
+	for i, k := range signedData {
+		m.Put(int(k), int16(signedData[i]))
+	}
+	for i, k := range signedData {
+		m.Inc(int(k))
+		m.Inc(int(k))
+		m.Inc(int(k))
+		if g := m.Get(int(k)); g != int16(signedData[i]) + 3 {
+			t.Errorf("got %d, want 0\n", g, int16(signedData[i]) + 3)
+		}
+	}
+}
+
 func TestMapIntToInt32Size(t *testing.T) {
 	m := NewMapIntToInt32(13)
 	if m.Size() != 0 {
@@ -259,6 +304,21 @@ func TestMapIntToInt32Clear(t *testing.T) {
 	m.Clear()
 	if m.Size() != 0 {
 		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+}
+
+func TestMapIntToInt32Inc(t *testing.T) {
+	m := NewMapIntToInt32(13)
+	for i, k := range signedData {
+		m.Put(int(k), int32(signedData[i]))
+	}
+	for i, k := range signedData {
+		m.Inc(int(k))
+		m.Inc(int(k))
+		m.Inc(int(k))
+		if g := m.Get(int(k)); g != int32(signedData[i]) + 3 {
+			t.Errorf("got %d, want 0\n", g, int32(signedData[i]) + 3)
+		}
 	}
 }
 
@@ -325,6 +385,21 @@ func TestMapIntToInt64Clear(t *testing.T) {
 	}
 }
 
+func TestMapIntToInt64Inc(t *testing.T) {
+	m := NewMapIntToInt64(13)
+	for i, k := range signedData {
+		m.Put(int(k), int64(signedData[i]))
+	}
+	for i, k := range signedData {
+		m.Inc(int(k))
+		m.Inc(int(k))
+		m.Inc(int(k))
+		if g := m.Get(int(k)); g != int64(signedData[i]) + 3 {
+			t.Errorf("got %d, want 0\n", g, int64(signedData[i]) + 3)
+		}
+	}
+}
+
 func TestMapIntToUintSize(t *testing.T) {
 	m := NewMapIntToUint(13)
 	if m.Size() != 0 {
@@ -385,6 +460,21 @@ func TestMapIntToUintClear(t *testing.T) {
 	m.Clear()
 	if m.Size() != 0 {
 		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+}
+
+func TestMapIntToUintInc(t *testing.T) {
+	m := NewMapIntToUint(13)
+	for i, k := range signedData {
+		m.Put(int(k), uint(unsignedData[i]))
+	}
+	for i, k := range signedData {
+		m.Inc(int(k))
+		m.Inc(int(k))
+		m.Inc(int(k))
+		if g := m.Get(int(k)); g != uint(unsignedData[i]) + 3 {
+			t.Errorf("got %d, want 0\n", g, uint(unsignedData[i]) + 3)
+		}
 	}
 }
 
@@ -451,6 +541,21 @@ func TestMapIntToUint8Clear(t *testing.T) {
 	}
 }
 
+func TestMapIntToUint8Inc(t *testing.T) {
+	m := NewMapIntToUint8(13)
+	for i, k := range signedData {
+		m.Put(int(k), uint8(unsignedData[i]))
+	}
+	for i, k := range signedData {
+		m.Inc(int(k))
+		m.Inc(int(k))
+		m.Inc(int(k))
+		if g := m.Get(int(k)); g != uint8(unsignedData[i]) + 3 {
+			t.Errorf("got %d, want 0\n", g, uint8(unsignedData[i]) + 3)
+		}
+	}
+}
+
 func TestMapIntToUint16Size(t *testing.T) {
 	m := NewMapIntToUint16(13)
 	if m.Size() != 0 {
@@ -511,6 +616,21 @@ func TestMapIntToUint16Clear(t *testing.T) {
 	m.Clear()
 	if m.Size() != 0 {
 		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+}
+
+func TestMapIntToUint16Inc(t *testing.T) {
+	m := NewMapIntToUint16(13)
+	for i, k := range signedData {
+		m.Put(int(k), uint16(unsignedData[i]))
+	}
+	for i, k := range signedData {
+		m.Inc(int(k))
+		m.Inc(int(k))
+		m.Inc(int(k))
+		if g := m.Get(int(k)); g != uint16(unsignedData[i]) + 3 {
+			t.Errorf("got %d, want 0\n", g, uint16(unsignedData[i]) + 3)
+		}
 	}
 }
 
@@ -577,6 +697,21 @@ func TestMapIntToUint32Clear(t *testing.T) {
 	}
 }
 
+func TestMapIntToUint32Inc(t *testing.T) {
+	m := NewMapIntToUint32(13)
+	for i, k := range signedData {
+		m.Put(int(k), uint32(unsignedData[i]))
+	}
+	for i, k := range signedData {
+		m.Inc(int(k))
+		m.Inc(int(k))
+		m.Inc(int(k))
+		if g := m.Get(int(k)); g != uint32(unsignedData[i]) + 3 {
+			t.Errorf("got %d, want 0\n", g, uint32(unsignedData[i]) + 3)
+		}
+	}
+}
+
 func TestMapIntToUint64Size(t *testing.T) {
 	m := NewMapIntToUint64(13)
 	if m.Size() != 0 {
@@ -637,5 +772,20 @@ func TestMapIntToUint64Clear(t *testing.T) {
 	m.Clear()
 	if m.Size() != 0 {
 		t.Errorf("map size is %d, want 0\n", m.Size())
+	}
+}
+
+func TestMapIntToUint64Inc(t *testing.T) {
+	m := NewMapIntToUint64(13)
+	for i, k := range signedData {
+		m.Put(int(k), uint64(unsignedData[i]))
+	}
+	for i, k := range signedData {
+		m.Inc(int(k))
+		m.Inc(int(k))
+		m.Inc(int(k))
+		if g := m.Get(int(k)); g != uint64(unsignedData[i]) + 3 {
+			t.Errorf("got %d, want 0\n", g, uint64(unsignedData[i]) + 3)
+		}
 	}
 }

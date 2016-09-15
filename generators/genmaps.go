@@ -374,6 +374,21 @@ func Test{{ $TYPE }}Clear(t *testing.T) {
 		t.Errorf("map size is %d, want 0\n", m.Size())
 	}
 }
+
+func Test{{ $TYPE }}Inc(t *testing.T) {
+	m := New{{ $TYPE }}(13)
+	for i, k := range {{ $KEYS }} {
+		m.Put({{ $FROM }}(k), {{ $TO }}({{ $VALS }}[i]))
+	}
+	for i, k := range {{ $KEYS }} {
+		m.Inc({{ $FROM }}(k))
+		m.Inc({{ $FROM }}(k))
+		m.Inc({{ $FROM }}(k))
+		if g := m.Get({{ $FROM }}(k)); g != {{ $TO }}({{ $VALS }}[i]) + 3 {
+			t.Errorf("got %d, want 0\n", g, {{ $TO }}({{ $VALS }}[i]) + 3)
+		}
+	}
+}
 `
 
 var funcMap = template.FuncMap{
