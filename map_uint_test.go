@@ -136,6 +136,32 @@ func TestMapUintToIntModify(t *testing.T) {
 	}
 }
 
+func TestMapUintToIntFind(t *testing.T) {
+	m := NewMapUintToInt(13)
+
+	low := unsignedData[:len(unsignedData)/2]
+	hi := unsignedData[len(unsignedData)/2:]
+
+	for i, k := range low {
+		m.Put(uint(k), int(signedData[i]))
+	}
+	for i, k := range low {
+		v, ok := m.Find(uint(k))
+		if !ok {
+			t.Errorf("missing value for key %d\n", k)
+			continue
+		}
+		if want := int(signedData[i]); v != want {
+			t.Errorf("key %d: got %d, want %d\n", k, v, want)
+		}
+	}
+	for _, k := range hi {
+		if v, ok := m.Find(uint(k)); ok {
+			t.Errorf("key %d: got %d, want nothing\n", k, v)
+		}
+	}
+}
+
 func TestMapUintToIntPut(t *testing.T) {
 	m := NewMapUintToInt(13)
 	for i, k := range unsignedData {
@@ -302,6 +328,32 @@ func TestMapUintToInt8Modify(t *testing.T) {
 	for i, k := range unsignedData {
 		if g := m.Get(uint(k)); g != int8(signedData[i])+3 {
 			t.Errorf("got %d, want 0\n", g, int8(signedData[i])+3)
+		}
+	}
+}
+
+func TestMapUintToInt8Find(t *testing.T) {
+	m := NewMapUintToInt8(13)
+
+	low := unsignedData[:len(unsignedData)/2]
+	hi := unsignedData[len(unsignedData)/2:]
+
+	for i, k := range low {
+		m.Put(uint(k), int8(signedData[i]))
+	}
+	for i, k := range low {
+		v, ok := m.Find(uint(k))
+		if !ok {
+			t.Errorf("missing value for key %d\n", k)
+			continue
+		}
+		if want := int8(signedData[i]); v != want {
+			t.Errorf("key %d: got %d, want %d\n", k, v, want)
+		}
+	}
+	for _, k := range hi {
+		if v, ok := m.Find(uint(k)); ok {
+			t.Errorf("key %d: got %d, want nothing\n", k, v)
 		}
 	}
 }
@@ -476,6 +528,32 @@ func TestMapUintToInt16Modify(t *testing.T) {
 	}
 }
 
+func TestMapUintToInt16Find(t *testing.T) {
+	m := NewMapUintToInt16(13)
+
+	low := unsignedData[:len(unsignedData)/2]
+	hi := unsignedData[len(unsignedData)/2:]
+
+	for i, k := range low {
+		m.Put(uint(k), int16(signedData[i]))
+	}
+	for i, k := range low {
+		v, ok := m.Find(uint(k))
+		if !ok {
+			t.Errorf("missing value for key %d\n", k)
+			continue
+		}
+		if want := int16(signedData[i]); v != want {
+			t.Errorf("key %d: got %d, want %d\n", k, v, want)
+		}
+	}
+	for _, k := range hi {
+		if v, ok := m.Find(uint(k)); ok {
+			t.Errorf("key %d: got %d, want nothing\n", k, v)
+		}
+	}
+}
+
 func TestMapUintToInt16Put(t *testing.T) {
 	m := NewMapUintToInt16(13)
 	for i, k := range unsignedData {
@@ -642,6 +720,32 @@ func TestMapUintToInt32Modify(t *testing.T) {
 	for i, k := range unsignedData {
 		if g := m.Get(uint(k)); g != int32(signedData[i])+3 {
 			t.Errorf("got %d, want 0\n", g, int32(signedData[i])+3)
+		}
+	}
+}
+
+func TestMapUintToInt32Find(t *testing.T) {
+	m := NewMapUintToInt32(13)
+
+	low := unsignedData[:len(unsignedData)/2]
+	hi := unsignedData[len(unsignedData)/2:]
+
+	for i, k := range low {
+		m.Put(uint(k), int32(signedData[i]))
+	}
+	for i, k := range low {
+		v, ok := m.Find(uint(k))
+		if !ok {
+			t.Errorf("missing value for key %d\n", k)
+			continue
+		}
+		if want := int32(signedData[i]); v != want {
+			t.Errorf("key %d: got %d, want %d\n", k, v, want)
+		}
+	}
+	for _, k := range hi {
+		if v, ok := m.Find(uint(k)); ok {
+			t.Errorf("key %d: got %d, want nothing\n", k, v)
 		}
 	}
 }
@@ -816,6 +920,32 @@ func TestMapUintToInt64Modify(t *testing.T) {
 	}
 }
 
+func TestMapUintToInt64Find(t *testing.T) {
+	m := NewMapUintToInt64(13)
+
+	low := unsignedData[:len(unsignedData)/2]
+	hi := unsignedData[len(unsignedData)/2:]
+
+	for i, k := range low {
+		m.Put(uint(k), int64(signedData[i]))
+	}
+	for i, k := range low {
+		v, ok := m.Find(uint(k))
+		if !ok {
+			t.Errorf("missing value for key %d\n", k)
+			continue
+		}
+		if want := int64(signedData[i]); v != want {
+			t.Errorf("key %d: got %d, want %d\n", k, v, want)
+		}
+	}
+	for _, k := range hi {
+		if v, ok := m.Find(uint(k)); ok {
+			t.Errorf("key %d: got %d, want nothing\n", k, v)
+		}
+	}
+}
+
 func TestMapUintToInt64Put(t *testing.T) {
 	m := NewMapUintToInt64(13)
 	for i, k := range unsignedData {
@@ -982,6 +1112,32 @@ func TestMapUintToUintModify(t *testing.T) {
 	for i, k := range unsignedData {
 		if g := m.Get(uint(k)); g != uint(unsignedData[i])+3 {
 			t.Errorf("got %d, want 0\n", g, uint(unsignedData[i])+3)
+		}
+	}
+}
+
+func TestMapUintToUintFind(t *testing.T) {
+	m := NewMapUintToUint(13)
+
+	low := unsignedData[:len(unsignedData)/2]
+	hi := unsignedData[len(unsignedData)/2:]
+
+	for i, k := range low {
+		m.Put(uint(k), uint(unsignedData[i]))
+	}
+	for i, k := range low {
+		v, ok := m.Find(uint(k))
+		if !ok {
+			t.Errorf("missing value for key %d\n", k)
+			continue
+		}
+		if want := uint(unsignedData[i]); v != want {
+			t.Errorf("key %d: got %d, want %d\n", k, v, want)
+		}
+	}
+	for _, k := range hi {
+		if v, ok := m.Find(uint(k)); ok {
+			t.Errorf("key %d: got %d, want nothing\n", k, v)
 		}
 	}
 }
@@ -1156,6 +1312,32 @@ func TestMapUintToUint8Modify(t *testing.T) {
 	}
 }
 
+func TestMapUintToUint8Find(t *testing.T) {
+	m := NewMapUintToUint8(13)
+
+	low := unsignedData[:len(unsignedData)/2]
+	hi := unsignedData[len(unsignedData)/2:]
+
+	for i, k := range low {
+		m.Put(uint(k), uint8(unsignedData[i]))
+	}
+	for i, k := range low {
+		v, ok := m.Find(uint(k))
+		if !ok {
+			t.Errorf("missing value for key %d\n", k)
+			continue
+		}
+		if want := uint8(unsignedData[i]); v != want {
+			t.Errorf("key %d: got %d, want %d\n", k, v, want)
+		}
+	}
+	for _, k := range hi {
+		if v, ok := m.Find(uint(k)); ok {
+			t.Errorf("key %d: got %d, want nothing\n", k, v)
+		}
+	}
+}
+
 func TestMapUintToUint8Put(t *testing.T) {
 	m := NewMapUintToUint8(13)
 	for i, k := range unsignedData {
@@ -1322,6 +1504,32 @@ func TestMapUintToUint16Modify(t *testing.T) {
 	for i, k := range unsignedData {
 		if g := m.Get(uint(k)); g != uint16(unsignedData[i])+3 {
 			t.Errorf("got %d, want 0\n", g, uint16(unsignedData[i])+3)
+		}
+	}
+}
+
+func TestMapUintToUint16Find(t *testing.T) {
+	m := NewMapUintToUint16(13)
+
+	low := unsignedData[:len(unsignedData)/2]
+	hi := unsignedData[len(unsignedData)/2:]
+
+	for i, k := range low {
+		m.Put(uint(k), uint16(unsignedData[i]))
+	}
+	for i, k := range low {
+		v, ok := m.Find(uint(k))
+		if !ok {
+			t.Errorf("missing value for key %d\n", k)
+			continue
+		}
+		if want := uint16(unsignedData[i]); v != want {
+			t.Errorf("key %d: got %d, want %d\n", k, v, want)
+		}
+	}
+	for _, k := range hi {
+		if v, ok := m.Find(uint(k)); ok {
+			t.Errorf("key %d: got %d, want nothing\n", k, v)
 		}
 	}
 }
@@ -1496,6 +1704,32 @@ func TestMapUintToUint32Modify(t *testing.T) {
 	}
 }
 
+func TestMapUintToUint32Find(t *testing.T) {
+	m := NewMapUintToUint32(13)
+
+	low := unsignedData[:len(unsignedData)/2]
+	hi := unsignedData[len(unsignedData)/2:]
+
+	for i, k := range low {
+		m.Put(uint(k), uint32(unsignedData[i]))
+	}
+	for i, k := range low {
+		v, ok := m.Find(uint(k))
+		if !ok {
+			t.Errorf("missing value for key %d\n", k)
+			continue
+		}
+		if want := uint32(unsignedData[i]); v != want {
+			t.Errorf("key %d: got %d, want %d\n", k, v, want)
+		}
+	}
+	for _, k := range hi {
+		if v, ok := m.Find(uint(k)); ok {
+			t.Errorf("key %d: got %d, want nothing\n", k, v)
+		}
+	}
+}
+
 func TestMapUintToUint32Put(t *testing.T) {
 	m := NewMapUintToUint32(13)
 	for i, k := range unsignedData {
@@ -1662,6 +1896,32 @@ func TestMapUintToUint64Modify(t *testing.T) {
 	for i, k := range unsignedData {
 		if g := m.Get(uint(k)); g != uint64(unsignedData[i])+3 {
 			t.Errorf("got %d, want 0\n", g, uint64(unsignedData[i])+3)
+		}
+	}
+}
+
+func TestMapUintToUint64Find(t *testing.T) {
+	m := NewMapUintToUint64(13)
+
+	low := unsignedData[:len(unsignedData)/2]
+	hi := unsignedData[len(unsignedData)/2:]
+
+	for i, k := range low {
+		m.Put(uint(k), uint64(unsignedData[i]))
+	}
+	for i, k := range low {
+		v, ok := m.Find(uint(k))
+		if !ok {
+			t.Errorf("missing value for key %d\n", k)
+			continue
+		}
+		if want := uint64(unsignedData[i]); v != want {
+			t.Errorf("key %d: got %d, want %d\n", k, v, want)
+		}
+	}
+	for _, k := range hi {
+		if v, ok := m.Find(uint(k)); ok {
+			t.Errorf("key %d: got %d, want nothing\n", k, v)
 		}
 	}
 }

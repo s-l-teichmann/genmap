@@ -438,6 +438,32 @@ func Test{{ $TYPE }}Modify(t *testing.T) {
 	}
 }
 
+func Test{{ $TYPE }}Find(t *testing.T) {
+	m := New{{ $TYPE }}(13)
+
+	low := {{ $KEYS }}[:len({{ $KEYS }})/2]
+	hi := {{ $KEYS }}[len({{ $KEYS }})/2:]
+
+	for i, k := range low {
+		m.Put({{ $FROM }}(k), {{ $TO }}({{ $VALS }}[i]))
+	}
+	for i, k := range low {
+		v, ok := m.Find({{ $FROM }}(k))
+		if !ok {
+			t.Errorf("missing value for key %d\n", k)
+			continue
+		}
+		if want := {{ $TO }}({{ $VALS }}[i]); v != want {
+			t.Errorf("key %d: got %d, want %d\n", k, v, want)
+		}
+	}
+	for _, k := range hi {
+		if v, ok := m.Find({{ $FROM }}(k)); ok {
+			t.Errorf("key %d: got %d, want nothing\n", k, v)
+		}
+	}
+}
+
 func Test{{ $TYPE }}Put(t *testing.T) {
 	m := New{{ $TYPE }}(13)
 	for i, k := range {{ $KEYS }} {
