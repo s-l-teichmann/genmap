@@ -389,7 +389,7 @@ func Test{{ $TYPE }}Inc(t *testing.T) {
 		m.Inc({{ $FROM }}(k))
 		m.Inc({{ $FROM }}(k))
 		if g := m.Get({{ $FROM }}(k)); g != {{ $TO }}({{ $VALS }}[i])+3 {
-			t.Errorf("got %d, want 0\n", g, {{ $TO }}({{ $VALS }}[i])+3)
+			t.Errorf("got %d, want %d\n", g, {{ $TO }}({{ $VALS }}[i])+3)
 		}
 	}
 	m = New{{ $TYPE }}(13)
@@ -409,7 +409,7 @@ func Test{{ $TYPE }}Add(t *testing.T) {
 	for i, k := range {{ $KEYS }} {
 		m.Add({{ $FROM }}(k), 3)
 		if g := m.Get({{ $FROM }}(k)); g != {{ $TO }}({{ $VALS }}[i])+3 {
-			t.Errorf("got %d, want 0\n", g, {{ $TO }}({{ $VALS }}[i])+3)
+			t.Errorf("got %d, want %d\n", g, {{ $TO }}({{ $VALS }}[i])+3)
 		}
 	}
 	m = New{{ $TYPE }}(13)
@@ -433,7 +433,7 @@ func Test{{ $TYPE }}Modify(t *testing.T) {
 	}
 	for i, k := range {{ $KEYS }} {
 		if g := m.Get({{ $FROM }}(k)); g != {{ $TO }}({{ $VALS }}[i])+3 {
-			t.Errorf("got %d, want 0\n", g, {{ $TO }}({{ $VALS }}[i])+3)
+			t.Errorf("got %d, want %d\n", g, {{ $TO }}({{ $VALS }}[i])+3)
 		}
 	}
 }
@@ -474,7 +474,7 @@ func Test{{ $TYPE }}Put(t *testing.T) {
 	}
 	for i, k := range {{ $KEYS }} {
 		if g := m.Get({{ $FROM }}(k)); g != {{ $TO }}({{ $VALS }}[i])+3 {
-			t.Errorf("got %d, want 0\n", g, {{ $TO }}({{ $VALS }}[i])+3)
+			t.Errorf("got %d, want %d\n", g, {{ $TO }}({{ $VALS }}[i])+3)
 		}
 	}
 }
