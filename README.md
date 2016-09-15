@@ -2,6 +2,8 @@
 
 Specialized hash maps for integer types in Go.
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/s-l-teichmann/genmap)](https://goreportcard.com/report/github.com/s-l-teichmann/genmap)
+
 The builtin maps of Go are good but sometimes you need some extra
 performance.
 
